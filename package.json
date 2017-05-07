@@ -1,0 +1,29 @@
+{
+  "name": "@ruphin/gluonjs",
+  "version": "0.0.1",
+  "description": "A tiny WebComponent library",
+  "main": "gluon.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruphin/gluonjs.git"
+  },
+  "author": "Goffert van Gool <ruphin@ruphin.net>",
+  "keywords": [
+    "web-components",
+    "webcomponents"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ruphin/gluonjs/issues"
+  },
+  "scripts": {
+    "build": "gulp"
+  },
+  "homepage": "https://github.com/ruphin/gluonjs",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.0"
+  }
+}
