@@ -1,5 +1,5 @@
 {
-  "name": "@ruphin/gluonjs",
+  "name": "gluonjs",
   "version": "0.0.1",
   "description": "A tiny WebComponent library",
   "main": "gluon.min.js",
@@ -20,7 +20,7 @@
     "build": "gulp"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jsmin": "^0.1.5",
     "gulp-rename": "^1.2.2",

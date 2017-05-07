@@ -1,0 +1,19 @@
+{
+  "name": "gluonjs",
+  "version": "0.0.1",
+  "description": "A tiny WebComponent library",
+  "main": "gluon.min.js",
+  "authors": [
+    "Goffert van Gool <ruphin@ruphin.net>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "webcomponents"
+  ],
+  "homepage": "https://github.com/ruphin/gluonjs",
+  "ignore": [
+    "**/.*",
+    "node_modules"
+  ]
+}
