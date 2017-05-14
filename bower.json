@@ -1,6 +1,5 @@
 {
   "name": "gluonjs",
-  "version": "0.0.1",
   "description": "A tiny WebComponent library",
   "main": "gluon.min.js",
   "authors": [
