@@ -7,5 +7,5 @@ build:
 .PHONY: build
 
 publish: build
-	docker run -it --rm -v $$PWD:/app -v ~/.git:/app/.git ruphin/webdev yarn publish
+	docker run -it --rm -v $$PWD:/app -v $$HOME/.git:/home/app/.git ruphin/webdev bash
 .PHONY: build

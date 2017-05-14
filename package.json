@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "A tiny WebComponent library",
   "main": "gluon.min.js",
+  "files": ["gluon.min.js", "gluon.min.js.map"],
   "repository": {
     "type": "git",
     "url": "https://github.com/ruphin/gluonjs.git"
