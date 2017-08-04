@@ -1,7 +1,7 @@
 {
   "name": "gluonjs",
   "description": "A tiny WebComponent library",
-  "main": "gluon.min.js",
+  "main": "gluon.html",
   "authors": [
     "Goffert van Gool <ruphin@ruphin.net>"
   ],

@@ -70,10 +70,8 @@
 
     _createElementCache() {
       this.$ = {};
-      this.shadowRoot.querySelectorAll('*').forEach((element) => {
-        if (element.id) {
-          this.$[element.id] = element;
-        }
+      this.shadowRoot.querySelectorAll('[id]').forEach((element) => {
+        this.$[element.id] = element;
       });
     }
   }

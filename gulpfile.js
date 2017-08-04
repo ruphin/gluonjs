@@ -1,15 +1,13 @@
 'use strict';
 
 const gulp = require('gulp');
-const sourcemaps = require('gulp-sourcemaps');
 const jsmin = require('gulp-jsmin');
-const rename = require('gulp-rename');
+const inline = require('gulp-inline');
 
 gulp.task('default', () => {
-  return gulp.src('./src/gluon.js', {base: './src'})
-    .pipe(sourcemaps.init())
-    .pipe(jsmin())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(sourcemaps.write('.'))
+  return gulp.src('./src/gluon.html', {base: './src'})
+    .pipe(inline({
+      js: jsmin,
+    }))
     .pipe(gulp.dest('.'));
 });

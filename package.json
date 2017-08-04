@@ -1,11 +1,10 @@
 {
   "name": "gluonjs",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A tiny WebComponent library",
-  "main": "gluon.min.js",
+  "main": "gluon.html",
   "files": [
-    "gluon.min.js",
-    "gluon.min.js.map"
+    "gluon.html"
   ],
   "repository": {
     "type": "git",
@@ -22,13 +21,12 @@
   },
   "scripts": {
     "build": "gulp",
-    "publish": "git add gluon.min.js*"
+    "publish": "git add gluon.html"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jsmin": "^0.1.5",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.6.0"
+    "gulp-inline": "^0.1.3"
   }
 }
