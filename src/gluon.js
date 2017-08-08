@@ -1,17 +1,24 @@
 (Gluon => {
-  // Exit if we are already defined
+  // Exit if Gluon.Element is already defined
   if (Gluon.Element) { return; }
 
+  // Symbol key for storing the template in element class
+  const TEMPLATE = Symbol('template');
+
+  // Symbol keys for private methods
+  const ATTACHTEMPLATE = Symbol('attachTemplate');
+  const CREATEIDCACHE = Symbol('createIdCache');
+
   // Globals for resolveUrl
-  let ABS_URL = /(^\/)|(^#)|(^[\w-\d]*:)/;
+  const ABS_URL = /(^\/)|(^#)|(^[\w-\d]*:)/;
   let workingURL;
   let resolveDoc;
 
   class GluonElement extends HTMLElement {
     constructor() {
       super();
-      this._attachTemplate();
-      this._createIDCache();
+      this[ATTACHTEMPLATE]();
+      this[CREATEIDCACHE]();
     }
 
     // Helper method to resolve an URL relative to the element's source location.
@@ -53,42 +60,42 @@
       resolveDoc.anchor.href = url;
       return resolveDoc.anchor.href || url;
     }
+  }
 
-    _attachTemplate() {
-      // If we have not initialized the template for this Element
-      if (this.constructor.__template === undefined) {
-        // Find the template in the source document of this Element
-        let template = (this.constructor._source && this.constructor._source.ownerDocument.getElementById(`${this.constructor.is}-template`));
+  GluonElement.prototype[ATTACHTEMPLATE] = function() {
+    // If we have not initialized the template for this Element
+    if (this.constructor[TEMPLATE] === undefined) {
+      // Find the template in the source document of this Element
+      let template = (this.constructor._source && this.constructor._source.ownerDocument.getElementById(`${this.constructor.is}-template`));
 
-        // If we find a template, prepare it and store the prepared template in the Element class
-        if (template) {
-          if (window.ShadyCSS) {
-            window.ShadyCSS.prepareTemplate(template, this.constructor.is);
-          }
-          this.constructor.__template = template;
-        } else {
-        // If we cannot find a template in the source document, disable templating for this Element
-          console.debug(`No template found for ${this.constructor.is}`);
-          this.constructor.__template = false;
-          return;
+      // If we find a template, prepare it and store the prepared template in the Element class
+      if (template) {
+        if (window.ShadyCSS) {
+          window.ShadyCSS.prepareTemplate(template, this.constructor.is);
         }
-      }
-
-      // If the Element has a stored template, create a shadowRoot and insert a clone of our template
-      if (this.constructor.__template) {
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(this.constructor.__template.content.cloneNode(true));
+        this.constructor[TEMPLATE] = template;
+      } else {
+      // If we cannot find a template in the source document, disable templating for this Element
+        console.debug(`No template found for ${this.constructor.is}`);
+        this.constructor[TEMPLATE] = false;
+        return;
       }
     }
 
-    // Create a map of all Elements in our template with an id
-    _createIDCache() {
-      if (this.shadowRoot) {
-        this.$ = {};
-        this.shadowRoot.querySelectorAll('[id]').forEach((element) => {
-          this.$[element.id] = element;
-        });
-      }
+    // If the Element has a stored template, create a shadowRoot and insert a clone of our template
+    if (this.constructor[TEMPLATE]) {
+      this.attachShadow({mode: 'open'});
+      this.shadowRoot.appendChild(this.constructor[TEMPLATE].content.cloneNode(true));
+    }
+  }
+
+  // Create a map of all Elements in our template with an id
+  GluonElement.prototype[CREATEIDCACHE] = function() {
+    if (this.shadowRoot) {
+      this.$ = {};
+      this.shadowRoot.querySelectorAll('[id]').forEach((element) => {
+        this.$[element.id] = element;
+      });
     }
   }
 
