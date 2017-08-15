@@ -1,0 +1,81 @@
+<link rel="import" href="/gluon.html">
+<link rel="import" href="/pages/gluonjs-code.html">
+
+<template id="gluonjs-docs-template">
+  <link rel="stylesheet" href="/cayman.css">
+  <section class="page-header">
+    <h1 class="project-name">Gluonjs</h1>
+    <h2 class="project-tagline">Gluonjs is a lightweight web component library for fast prototyping and development</h2>
+    <a href="https://github.com/ruphin/gluonjs" class="btn">View on GitHub</a>
+    <a href="https://github.com/ruphin/gluonjs/zipball/master" class="btn">Download .zip</a>
+    <a href="https://github.com/ruphin/gluonjs/tarball/master" class="btn">Download .tar.gz</a>
+  </section>
+  <section class="main-content">
+    <h1>Philosophy</h1>
+    <p>Gluonjs is designed for developers who like to work with vanilla web components and platfom-based tools. It takes care of most boilerplate when writing native web components, allowing you to focus more on the content, and write leaner code.</p>
+
+    <h2>Gluonjs is</h2>
+    <ul>
+      <li>Designed to work like native web components. No library-specific semantics</li>
+      <li>Super lightweight. Only 1.8Kb unzipped</li>
+      <li>So fast it's silly. Easily the fastest component library out there</li>
+      <li>Compatible with everything. Adheres to web component standards</li>
+      <li>Easy to install and deploy. Use Bower, NPM, or just download the zip</li>
+    </ul>
+
+    <h2>Gluonjs is great for</h2>
+    <ul>
+      <li>Developers who like to work with standards</li>
+      <li>Quick prototypes</li>
+      <li>Internal projects</li>
+      <li>Highly portable components</li>
+      <li>Websites that don't care about IE</li>
+    </ul>
+
+    <hr>
+
+    <h1>Features</h1>
+    <p>The main feature of Gluonjs is simplicity. A minimal element definition with Gluonjs is exactly like using native web components.</p>
+    <gluonjs-code id="minimal_example"></gluonjs-code>
+    <p>On top of that, it adds a few useful features that solve common issues with web components.</p>
+
+    <h2>Template stamping</h2>
+    <p>When your web component requires a template, all you need to do is set the static <code>_source</code> property on your element. Gluonjs will prepare the template for your element, and stamp it to the Shadow DOM of each instance.</p>
+    <gluonjs-code id="template_example"></gluonjs-code>
+
+    <h2>Element lookup map</h2>
+    <p>Gluonjs automatically creates <code>this.$</code> which maps all elements in the template with an ID.</p>
+    <gluonjs-code id="lookup_example"></gluonjs-code>
+
+    <h2>URL resolver</h2>
+    <p>Easily resolve URLs relative to your element's source with <code>this.resolveUrl()</code>.</p>
+    <gluonjs-code id="resolver_example"></gluonjs-code>
+    <hr>
+
+    <h1>Browser support</h1>
+    <p>Gluonjs is supported by all evergreen browsers. To keep the codebase lean and fast, IE is not supported.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>IE</th>
+          <th>Edge</th>
+          <th>Chrome</th>
+          <th>Firefox</th>
+          <th>Safari</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>✗</td>
+          <td>✓*</td>
+          <td>✓</td>
+          <td>✓*</td>
+          <td>✓*</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.8em;">*With web component <a href="https://github.com/webcomponents/webcomponentsjs">polyfill</a></p>
+  </section>
+</template>
+
+<script src="./gluonjs-docs.js"></script>
