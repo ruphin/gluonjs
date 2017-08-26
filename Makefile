@@ -3,8 +3,7 @@ shell:
 .PHONY: shell
 
 dev:
-	@echo App is open at http://localhost:5000
-	docker run -it --rm -v  $$PWD:/usr/share/nginx/html -p 5000:80 ruphin/webserve
+	docker run -it --rm -v $$PWD:/app -p 5000:5000 ruphin/webdev gulp serve
 .PHONY: dev
 
 build:
@@ -16,5 +15,5 @@ publish: build
 .PHONY: publish
 
 production:
-	docker build -t ruphin/gluonpages .
+	docker build -t ruphin/gluones6pages .
 .PHONY: production

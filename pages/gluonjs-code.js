@@ -1,18 +1,19 @@
-{
-  const _source = document.currentScript;
-  class GluonCode extends Gluon.Element {
-    static get _source() {
-      return _source;
-    }
-    static get is() {
-      return 'gluonjs-code';
-    }
-    set sourceText(code) {
-      this.$.code.innerText = code;
-      this.$.code.classList.add(this.language);
-      hljs.highlightBlock(this.$.code);
-    }
+import { Gluon } from '/src/gluon.js';
+
+export class GluonCode extends Gluon.Element {
+  static get template() {
+    return 'gluonjs-code.html';
   }
 
-  customElements.define(GluonCode.is, GluonCode);
+  static get is() {
+    return 'gluonjs-code';
+  }
+
+  set sourceText(code) {
+    this.$.code.innerText = code;
+    this.$.code.classList.add(this.language);
+    hljs.highlightBlock(this.$.code);
+  }
 }
+
+Gluon.define(GluonCode.is, GluonCode);

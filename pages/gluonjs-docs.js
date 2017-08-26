@@ -1,86 +1,49 @@
-{
-  const source = document.currentScript;
+import { Gluon } from '/src/gluon.js';
+import { GluonCode } from '/pages/gluonjs-code.js';
 
-  const minimalExampleSource = `class MyElement extends Gluon.Element {
+const javascriptExample = `import { Gluon } from '/src/gluon.js';
+
+export class GluonCode extends Gluon.Element {
+  static get template() {
+    return 'gluonjs-code.html';
+  }
+
   static get is() {
-    return 'my-element';
+    return 'gluonjs-code';
+  }
+
+  set sourceText(code) {
+    this.$.code.innerText = code;
+    this.$.code.classList.add(this.language);
+    hljs.highlightBlock(this.$.code);
   }
 }
 
-customElements.define(MyElement.is, MyElement);`;
+Gluon.define(GluonCode.is, GluonCode);`;
 
-  const templateExampleSource = `<template id="my-element-template">
-  <span>A simple template</span>
+const htmlExample = `<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+<template id="gluonjs-code-template">
+  <link rel="stylesheet" href="pages/gluonjs-code.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <div class="code"><pre class="highlight"><code id="code"></code></pre></div>
 </template>
+`;
 
-<script>
-{
-  const source = document.currentScript;
-  class MyElement extends Gluon.Element {
-    static get _source() {
-      return source;
-    }
-    static get is() {
-      return 'my-element';
-    }
+export class GluonDocs extends Gluon.Element {
+  static get template() {
+    return 'gluonjs-docs.html';
+  }
+  static get is() {
+    return 'gluonjs-docs';
   }
 
-  customElements.define(MyElement.is, MyElement);
-}
-</script>`;
-
-  const lookupExampleSource = `<template id="my-element-template">
-  <span id="counter"></span>
-</template>
-
-<script>
-{
-  class MyElement extends Gluon.Element {
-    ...
-    constructor() {
-      super();
-      this.count = 0;
-    }
-    connectedCallback() {
-      this.$.counter.textContent = this.count;
-    }
+  connectedCallback() {
+    this.$.javascript_example.language = 'javascript';
+    this.$.javascript_example.sourceText = javascriptExample;
+    this.$.html_example.language = 'html';
+    this.$.html_example.sourceText = htmlExample;
   }
 }
-</script>`;
 
-  const resolverExampleSource = `<template id="my-element-template">
-  <img id="avatar">
-</template>
-
-<script>
-{
-  class MyElement extends Gluon.Element {
-    ...
-    setAvatar(name) {
-      this.$.avatar.src = this.resolveUrl(\`avatars/\${name}.png\`);
-    }
-  }
-}
-</script>`;
-
-  class GluonDocs extends Gluon.Element {
-    static get _source() {
-      return source;
-    }
-    static get is() {
-      return 'gluonjs-docs';
-    }
-    connectedCallback() {
-      this.$.minimal_example.language = 'javascript';
-      this.$.minimal_example.sourceText = minimalExampleSource;
-      this.$.template_example.language = 'html';
-      this.$.template_example.sourceText = templateExampleSource;
-      this.$.lookup_example.language = 'html';
-      this.$.lookup_example.sourceText = lookupExampleSource;
-      this.$.resolver_example.language = 'html';
-      this.$.resolver_example.sourceText = resolverExampleSource;
-    }
-  }
-
-  customElements.define(GluonDocs.is, GluonDocs);
-}
+Gluon.define(GluonDocs.is, GluonDocs);
