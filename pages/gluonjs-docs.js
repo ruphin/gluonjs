@@ -92,8 +92,8 @@ const NEEDSRENDER = Symbol('needsRender');
   <h2>Bundling / building for production</h2>
   <p>Not every browser can natively handle ES6 modules, so for production purposes (if you want to support all browsers) you will need a build step. Webpack is a promising tool to bundle your ES6 module components into a single app.js file that can be loaded as a single resource, and can be set up with minimal effort. Lazy-loading and application fragments require more work, and there is much room for improvement in this area.</p>
 
-    <h2>Bundling / building for production</h2>
-    <p>Not every browser can natively handle ES6 modules, so for production purposes (if you want to support all browsers) you will need a build step. Webpack is a promising tool to bundle your ES6 module components into a single app.js file that can be loaded as a single resource, and can be set up with minimal effort. Lazy-loading and application fragments require more work, and there is much room for improvement in this area.</p>
+  <h2>Code highlighting / editor features</h2>
+  <p>Editing HTML within JS files does not make my texteditor happy.</p>
 
   <h1>Contributing</h1>
   <p>All work on this project happens in the open on <a href="https://github.com/ruphin/gluonjs/tree/es6-modules">Github</a>. The easiest way to get started is to fork and run <code>npm install &amp;&amp; npm run dev</code> Feel free to fork and tinker with it, or create issues or pull requests.</p>

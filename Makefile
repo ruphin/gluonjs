@@ -15,5 +15,6 @@ publish: build
 .PHONY: publish
 
 production:
+	docker run -it --rm -v $$PWD:/app ruphin/webdev yarn run build
 	docker build -t ruphin/gluones6pages .
 .PHONY: production
