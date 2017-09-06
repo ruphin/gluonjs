@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "devDependencies": {
+    "browser-sync": "^2.18.13",
     "gulp": "^3.9.1",
-    "gulp-jsmin": "^0.1.5",
-    "browser-sync": "^2.18.13"
+    "gulp-jsmin": "^0.1.5"
+  },
+  "dependencies": {
+    "lit-html": "^0.6.0"
   }
 }

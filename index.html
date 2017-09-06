@@ -9,10 +9,6 @@
 <meta property="og:url" content="https://ruphin.github.io/gluonjs/" />
 <meta property="og:site_name" content="Gjuonjs library" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.7/webcomponents-loader.js"></script>
-<script>
-Gluon = { base: '/pages/' };
-</script>
 <script type="module" src="/pages/gluonjs-docs.js"></script>
 
 <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'>
@@ -33,7 +29,26 @@ Gluon = { base: '/pages/' };
   }
 </style>
 
-<gluonjs-docs></gluonjs-docs>
+<gluon-docs></gluon-docs>
+
+<script nomodule>
+let p = document.createElement('p');
+p.innerText = `Oh no! Your browser does not support ES6 modules
+Please try again with Chrome v61 or Safari 10.1
+`;
+p.style.textAlign = 'center';
+document.body.appendChild(p);
+</script>
+<script>
+if (!window.customElements) {
+  let p = document.createElement('p');
+  p.innerText = `Oh no! Your browser does not support Custom Elements
+    Please try again with Chrome v61 or Safari 10.1
+    `;
+  p.style.textAlign = 'center';
+  document.body.appendChild(p);
+}
+</script>
 
 <!-- build:remove -->
 <span id="browser-sync-binding"></span>

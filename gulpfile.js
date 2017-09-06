@@ -24,7 +24,7 @@ gulp.task('serve', function() {
       }
     },
     server: {
-      baseDir: ['']
+      baseDir: ['', 'node_modules']
     }
   });
 
