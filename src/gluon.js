@@ -5,11 +5,12 @@ export { html };
 export class GluonElement extends HTMLElement {
   constructor() {
     super();
-    if (this.template) {
+    if ('template' in this) {
       this.attachShadow({ mode: 'open' });
       this.render();
-      render(this.template, this.shadowRoot);
-      createIdCache(this);
+      Promise.resolve().then(() => {
+        createIdCache(this);
+      });
     }
   }
   static get is() {
