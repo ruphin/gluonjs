@@ -1,6 +1,6 @@
 {
   "name": "gluonjs",
-  "version": "2.0.0-preview.2",
+  "version": "2.0.0-preview.3",
   "description": "A tiny WebComponent library",
   "main": "gluon.js",
   "files": [
