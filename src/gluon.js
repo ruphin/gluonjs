@@ -3,18 +3,15 @@ import { render, html } from '../lit-html/lit-html.js';
 export { html };
 
 export class GluonElement extends HTMLElement {
-  constructor() {
-    super();
-    if ('template' in this) {
-      this.attachShadow({ mode: 'open' });
-      this.render();
-      Promise.resolve().then(() => {
-        createIdCache(this);
-      });
-    }
-  }
   static get is() {
     return this[TAG] || (this[TAG] = camelToKebab(this.name));
+  }
+  connectedCallback() {
+    if ('template' in this) {
+      this.attachShadow({ mode: 'open' });
+      render(this.template, this.shadowRoot);
+      createIdCache(this);
+    }
   }
   render() {
     if (!this[NEEDSRENDER]) {
