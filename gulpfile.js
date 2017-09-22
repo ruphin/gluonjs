@@ -1,15 +1,23 @@
-'use strict';
-
 const gulp = require('gulp');
-const jsmin = require('gulp-jsmin');
+const path = require('path');
+const babel = require('gulp-babel');
 const browserSync = require('browser-sync');
 
+const SOURCE = 'src';
+const source = function(...subpaths) {
+  return subpaths.length == 0 ? SOURCE : path.join(SOURCE, ...subpaths);
+};
+
+// Build production files, the default task
 gulp.task('default', () => {
-  return gulp.src('./src/gluon.js', { base: './src' }).pipe(jsmin()).pipe(gulp.dest('.'));
+  gulp
+    .src(source('gluon.js'))
+    .pipe(babel({ presets: ['minify'] }))
+    .pipe(gulp.dest('.'));
 });
 
 // Serve from source
-gulp.task('serve', function() {
+gulp.task('serve', () => {
   browserSync({
     port: 5000,
     notify: false,
