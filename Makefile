@@ -12,7 +12,7 @@ build:
 .PHONY: build
 
 publish: build
-	docker run -it --rm -v $$PWD:/app -v $m$HOME/.gitconfig:/home/app/.gitconfig -v $$HOME/.ssh:/home/app/.ssh ruphin/webdev yarn publish
+	docker run -it --rm -v $$PWD:/app -v $$HOME/.gitconfig:/home/app/.gitconfig -v $$HOME/.ssh:/home/app/.ssh ruphin/webdev yarn publish
 .PHONY: publish
 
 production:
