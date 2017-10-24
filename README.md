@@ -1,71 +1,74 @@
-# About Gluonjs
+# Gluonjs
 
-[Gluonjs](https://gluonjs.ruph.in/) is a minimal Web Component framework designed for simplicity and speed. It borrows some ideas from [Polymer](https://www.polymer-project.org/), but is mostly based on platform features. [The source](https://github.com/ruphin/gluonjs/blob/es6-modules/src/gluon.js) for the ES6 version is only ~100 lines of javascript.
+[Gluonjs](https://gluonjs.ruph.in/) is a **lightweight library** for building web applications. The latest 2.0 release (all dependencies included) weighs only 5.8Kb.
 
-# HTML Import system
 
-Unfortunately, HTML Imports is being deprecated. This leaves us with ES6 modules as the only native import system on the web. This is fine in theory, we can load our Web Components as ES6 modules, but an unfortunate side-effect is that we are left to embed our HTML in JavaScript files.
-We are seeing some excellent projects such as [lit-html](https://github.com/PolymerLabs/lit-html) to help with this situation, but a part of the Web Component community strongly prefers to keep their HTML in .html files. This project is an experiment to find alternative ways to load HTML in the ES6 module ecosystem.
+* **Platform Based:** GluonJS is designed to leverage the latest web platform capabilities, making it extremely small in size, and very performant on modern browsers. Additionally, it means that __build/compile steps are optional__; GluonJS components work on modern browsers without any pre-processing.
+* **Component Model:** Build components with encapsulated logic and style, then compose them to make complex interfaces. Uses the Web Component standard, with all related APIs available directly to developers.
+* **Highly Reusable:** Because GluonJS creates standards-compliant Web Components, you can use components created with GluonJS in almost any existing application. Check [Custom Elements Everywhere](https://custom-elements-everywhere.com/) for up-to-date compatibility tables with existing frameworks.
+* **Powerful Templating:** GluonJS uses [lit-html](https://github.com/PolymerLabs/lit-html) for templating, making it highly expressive and flexible.
 
-# Current Status
 
-[This website](https://gluones6.ruph.in) loads Web Components as ES6 modules, and fetches HTML templates from html files. So all the basics are in place :)
-However, we have to compromise on several points to get this to work
+## Examples
 
-## Example code
-
-This is what a Web Component module looks like with Gluon currently
+Here is an example of a GluonJS component:
 
 ```javascript
-import { Gluon } from '/src/gluon.js';
+// helloMessage.js
+import { GluonElement, html } from '/node_modules/gluonjs/gluon.js';
 
-export class GluonCode extends Gluon.Element {
-  static get template() {
-    return 'gluonjs-code.html';
-  }
-
-  static get is() {
-    return 'gluonjs-code';
-  }
-
-  set sourceText(code) {
-    this.$.code.innerText = code;
-    this.$.code.classList.add(this.language);
-    hljs.highlightBlock(this.$.code);
+class HelloMessage extends GluonElement {
+  get template() {
+    return html`<div>Hello ${this.getAttribute('name')}</div>`;
   }
 }
 
-Gluon.define(GluonCode.is, GluonCode);
+customElements.define(HelloMessage.is, HelloMessage);
 ```
 
-The major compromise here is that we have to use `Gluon.define(...)` instead of `customElements.define(...)`. This is unavoidable, because we must defer the registration of components until their templates are loaded. Furthermore, we need to tell the component where to find the source for the element, with the static `template` property. It is possible to encode some smart behaviours here such as attempting to infer this filename from the `is` property, or something similar. It should be possible to automatically detect if the template is a file reference, a template in string form, or a reference to an existing `<template>` element, for maximum flexibility.
-
-This is what an HTML template file looks like.
+We can import and use this component from anywhere:
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<!-- index.html -->
+<script type="module" src="/helloMessage.js"></script>
 
-<template id="gluonjs-code-template">
-  <link rel="stylesheet" href="pages/gluonjs-code.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  <div class="code"><pre class="highlight"><code id="code"></code></pre></div>
-</template>
+<hello-message name="John"></hello-message>
 ```
 
-At the moment, Gluonjs attempts to find a template within the html template file with id ``${element.is}-template`. If this fails, the entire contents of the file are treated as the template. This leaves maximum flexibility in situations where multiple element templates are defined in one file.
-If this file contains scripts, they are guaranteed to be loaded in-order, and before the element registers, similar to how the current HTML Imports behave. The current HTML Imports polyfill could be adapted to perform this resource loading. A mechanism to fix relative URLs is still needed.
-* * *
+This example will render "Hello John" on the page.
 
-# Outstanding Issues
 
-here are several outstanding issues
+## Documentation
 
-## Relative links from ES6 modules
-At the moment there is no `document.currentScript` equivalent for ES6 modules. This means relative URLs within our element .js files cannot be correctly resolved.
-Proposed solution is to have a global setting for the location of the `node_modules` folder or equivalent (assuming all modules are loaded from such a folder), which allows a module to load files relative from this folder.
+***Coming soon***
 
-## Bundling / building for production
-This whole area is still unexplored. It is probably desirable to bundle multiple element templates into a single file, but this will create problems with relative URLs and namespace conflicts.
 
-# Contributing
-All work on this project happens in the open on [Github](https://github.com/ruphin/gluonjs/tree/es6-modules). The easiest way to get started is to fork and run `npm install && npm run dev` on the es6-modules branch. Feel free to fork and tinker with it, and create issues or pull requests.
+## Installation
+
+GluonJS is available through [npm](https://www.npmjs.com) as `gluonjs`.
+
+
+## Compatibility
+
+| Chrome | Safari | Edge | Firefox  | IE |
+|--------|--------|------|----------|----|
+| ✔      | ✔     | *    | * †      | * † ‡|
+
+\* Requires [Web Component polyfill](https://www.webcomponents.org/polyfills/)
+
+† Requires ES6 Module bundling
+
+‡ Pending IE support in [lit-html](https://github.com/PolymerLabs/lit-html)
+
+
+
+
+## Contributing
+All work on GluonJS happens in the open on [Github](https://github.com/ruphin/gluonjs). A development environment is available at `localhost:5000` with `npm install && npm run dev`, or `make dev` if you use [Docker](https://www.docker.com/). All issue reports and pull requests are welcome.
+
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright © 2017-present, Goffert van Gool
