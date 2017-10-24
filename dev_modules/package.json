@@ -1,13 +1,12 @@
 {
   "private": true,
   "name": "gluonjs-dev-modules",
-  "version": "2.0.0-preview",
+  "version": "2.0.0",
   "author": "Goffert van Gool <ruphin@ruphin.net>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-minify": "^0.2.0",
-    "browser-sync": "^2.18.13",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-sourcemaps": "^2.6.1"

@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const path = require('path');
 const babel = require('gulp-babel');
-const browserSync = require('browser-sync');
 const sourcemaps = require('gulp-sourcemaps');
 
 const SOURCE = 'src';
@@ -17,27 +16,4 @@ gulp.task('default', () => {
     .pipe(babel({ presets: ['minify'] }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('.'));
-});
-
-// Serve from source
-gulp.task('serve', () => {
-  browserSync({
-    port: 5000,
-    notify: false,
-    open: false,
-    logPrefix: 'APP',
-    snippetOptions: {
-      rule: {
-        match: '<span id="browser-sync-binding"></span>',
-        fn: function(snippet) {
-          return snippet;
-        }
-      }
-    },
-    server: {
-      baseDir: ['', 'node_modules']
-    }
-  });
-
-  gulp.watch(['**/*.html', '**/*.js', 'index.html'], browserSync.reload);
 });
