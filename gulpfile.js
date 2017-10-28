@@ -1,23 +1,39 @@
 const gulp = require('gulp');
 const path = require('path');
-const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync');
+const rollup = require('gulp-rollup');
+const includePaths = require('rollup-plugin-includepaths');
+const rename = require('gulp-rename');
+const uglify = require('gulp-uglify-es').default;
 
-const SOURCE = 'src';
-const source = function(...subpaths) {
-  return subpaths.length == 0 ? SOURCE : path.join(SOURCE, ...subpaths);
+const includePathOptions = {
+  include: {},
+  paths: ['node_modules/gluonjs'],
+  external: [],
+  extensions: ['.js']
 };
 
-// Build production files, the default task
-gulp.task('default', () => {
-  gulp
-    .src(source('gluon.js'))
+gulp.task('build', () => {
+  return gulp
+    .src('src/gluon.js')
     .pipe(sourcemaps.init())
-    .pipe(babel({ presets: ['minify'] }))
+    .pipe(uglify({ toplevel: true, mangle: true, compress: { passes: 2 } }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('.'));
 });
+
+gulp.task('nomodule', () => {
+  return gulp
+    .src(['src/gluon.js', 'node_modules/**/*.js'])
+    .pipe(rollup({ input: 'src/gluon.js', format: 'iife', name: 'GluonJS', plugins: [includePaths(includePathOptions)] }))
+    .pipe(rename('gluon.nomodule.js'))
+    .pipe(uglify({ toplevel: true, mangle: true, compress: { passes: 2 } }))
+    .pipe(gulp.dest('.'));
+});
+
+// Build production files, the default task
+gulp.task('default', ['build', 'nomodule']);
 
 // Serve from source
 gulp.task('serve', () => {

@@ -36,33 +36,23 @@ export class GluonElement extends HTMLElement {
     if ('template' in this) {
       this.attachShadow({ mode: 'open' });
       this.render({ sync: true });
-
-      this.shadyTemplate = document.createElement('template');
-      this.shadyPrepared = false;
-
       createIdCache(this);
     }
   }
   // Render the element's template.
   // By default, renders are asynchronous and executed at the next microtask timing,
   // so multiple render calls are batched.
-  // If the sync option is set to `true`, it renders syncrhonously instead.
-  render({ sync = false } = {}) {
-    if (sync) {
-      this[NEEDSRENDER] = false; // Cancel any existing render promise
+  // If the sync option is set to `true`, it renders synchronously instead.
+  // Returns a Promise that resolves when the render is completed.
+  async render({ sync = false } = {}) {
+    this[NEEDSRENDER] = true;
+    if (!sync) {
+      await 0;
+    }
+    if (this[NEEDSRENDER]) {
+      this[NEEDSRENDER] = false;
       render(this.template, this.shadowRoot);
       applyShadyCSS(this);
-    } else if (!this[NEEDSRENDER]) {
-      // Debounce multiple render calls
-      this[NEEDSRENDER] = true;
-      Promise.resolve().then(() => {
-        // Abort if we canceled this render promise
-        if (this[NEEDSRENDER]) {
-          this[NEEDSRENDER] = false;
-          render(this.template, this.shadowRoot);
-          applyShadyCSS(this);
-        }
-      });
     }
   }
 }
