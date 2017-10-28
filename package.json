@@ -1,15 +1,20 @@
 {
   "name": "gluonjs",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A tiny WebComponent library",
   "main": "gluon.js",
-  "files": ["gluon.js"],
+  "files": [
+    "gluon.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ruphin/gluonjs.git"
   },
   "author": "Goffert van Gool <ruphin@ruphin.net>",
-  "keywords": ["web-components", "webcomponents"],
+  "keywords": [
+    "web-components",
+    "webcomponents"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ruphin/gluonjs/issues"
