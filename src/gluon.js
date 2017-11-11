@@ -30,7 +30,7 @@ const createIdCache = function(element) {
 
 export class GluonElement extends HTMLElement {
   static get is() {
-    return this[TAG] || (this[TAG] = camelToKebab(this.name));
+    return (this.hasOwnProperty(TAG) && this[TAG]) || (this[TAG] = camelToKebab(this.name));
   }
   connectedCallback() {
     if ('template' in this) {
