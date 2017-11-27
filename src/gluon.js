@@ -8,10 +8,11 @@ const SHADYTEMPLATE = Symbol('shadyTemplate');
 
 const applyShadyCSS = element => {
   if (window.ShadyCSS) {
-    if (element[SHADYTEMPLATE] === undefined) {
-      element[SHADYTEMPLATE] = document.createElement('template');
-      element[SHADYTEMPLATE].innerHTML = element.shadowRoot.innerHTML;
-      ShadyCSS.prepareTemplate(element[SHADYTEMPLATE], element.localName);
+    const klass = element.constructor;
+    if (klass[SHADYTEMPLATE] === undefined) {
+      klass[SHADYTEMPLATE] = document.createElement('template');
+      klass[SHADYTEMPLATE].innerHTML = element.shadowRoot.innerHTML;
+      ShadyCSS.prepareTemplate(klass[SHADYTEMPLATE], klass.is);
     }
     ShadyCSS.styleElement(element);
   }
