@@ -1,8 +1,9 @@
 import { GluonElement, html } from '/gluon.js';
+import '/messageContainer.js';
 
 class HelloMessage extends GluonElement {
   get template() {
-    return html`<div>Hello ${this.getAttribute('name')}</div>`;
+    return html`<message-container message="${this.getAttribute('message')}"></message-container>`;
   }
 }
 
