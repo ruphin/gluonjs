@@ -22,10 +22,11 @@
   "scripts": {
     "build": "cd dev_modules && yarn install && cd .. && NODE_PATH=$PWD/dev_modules/node_modules dev_modules/node_modules/.bin/gulp",
     "dev": "cd dev_modules && yarn install && cd .. && NODE_PATH=$PWD/dev_modules/node_modules dev_modules/node_modules/.bin/gulp serve",
+    "checksize": "cat gluon.js | gzip -9 | wc -c | awk '{print \"gluon.js: \" $0}'; cat gluon.bundled.js | gzip -9 | wc -c | awk '{print \"gluon.bundled.js: \" $0}'",
     "publish": "git add gluon.js"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "dependencies": {
-    "lit-html": "^0.6.0"
+    "lit-html": "^0.8.0"
   }
 }

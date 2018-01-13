@@ -1,6 +1,5 @@
-import { render, html } from '../lit-html/lit-html.js';
-
-export { html };
+import { render } from '../lit-html/lib/lit-extended.js';
+export { html } from '../lit-html/lib/lit-extended.js';
 
 const TAG = Symbol('tag');
 const NEEDSRENDER = Symbol('needsRender');
@@ -18,11 +17,9 @@ const applyShadyCSS = element => {
   }
 };
 
-const camelToKebab = function(camel) {
-  return camel.replace(/([a-z])([A-Z])|(.)([A-Z][a-z])/g, '$1$3-$2$4').toLowerCase();
-};
+const camelToKebab = camel => camel.replace(/([a-z])([A-Z])|(.)([A-Z][a-z])/g, '$1$3-$2$4').toLowerCase();
 
-const createIdCache = function(element) {
+const createIdCache = element => {
   element.$ = {};
   element.shadowRoot.querySelectorAll('[id]').forEach(el => {
     element.$[el.id] = el;

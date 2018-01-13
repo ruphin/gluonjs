@@ -23,17 +23,17 @@ gulp.task('build', () => {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('nomodule', () => {
+gulp.task('bundle', () => {
   return gulp
     .src(['src/gluon.js', 'node_modules/**/*.js'])
     .pipe(rollup({ input: 'src/gluon.js', format: 'iife', name: 'GluonJS', plugins: [includePaths(includePathOptions)] }))
-    .pipe(rename('gluon.nomodule.js'))
-    .pipe(uglify({ toplevel: true, mangle: true, compress: { passes: 2 } }))
+    .pipe(rename('gluon.bundled.js'))
+    .pipe(uglify({ mangle: true, compress: { passes: 2 } }))
     .pipe(gulp.dest('.'));
 });
 
 // Build production files, the default task
-gulp.task('default', ['build', 'nomodule']);
+gulp.task('default', ['build', 'bundle']);
 
 // Serve from source
 gulp.task('serve', () => {
@@ -51,7 +51,7 @@ gulp.task('serve', () => {
       }
     },
     server: {
-      baseDir: ['examples', 'src', 'node_modules']
+      baseDir: ['examples', '.', 'node_modules']
     }
   });
 
