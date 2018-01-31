@@ -3,30 +3,41 @@
   "version": "2.1.0",
   "description": "A tiny WebComponent library",
   "main": "gluon.js",
-  "files": [
-    "gluon.js"
-  ],
+  "umd:main": "gluon.umd.js",
+  "module": "gluon.js",
+  "jsnext:main": "gluon.js",
+  "files": ["gluon.*"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruphin/gluonjs.git"
+    "url": "git+https://github.com/ruphin/gluonjs.git"
   },
   "author": "Goffert van Gool <ruphin@ruphin.net>",
-  "keywords": [
-    "web-components",
-    "webcomponents"
-  ],
+  "keywords": ["web-components", "webcomponents"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ruphin/gluonjs/issues"
   },
   "scripts": {
-    "build": "cd dev_modules && yarn install && cd .. && NODE_PATH=$PWD/dev_modules/node_modules dev_modules/node_modules/.bin/gulp",
-    "dev": "cd dev_modules && yarn install && cd .. && NODE_PATH=$PWD/dev_modules/node_modules dev_modules/node_modules/.bin/gulp serve",
-    "checksize": "cat gluon.js | gzip -9 | wc -c | awk '{print \"gluon.js: \" $0}'; cat gluon.bundled.js | gzip -9 | wc -c | awk '{print \"gluon.bundled.js: \" $0}'",
-    "publish": "git add gluon.js"
+    "build": "./node_modules/.bin/rollup -c",
+    "dev": "./node_modules/.bin/browser-sync start --config browsersync.config.js",
+    "publish": "git add gluon.js",
+    "prepublish": "yarn run build"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "dependencies": {
     "lit-html": "^0.8.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.18.13",
+    "rollup": "^0.55.1",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-filesize": "^1.5.0",
+    "rollup-plugin-includepaths": "^0.2.2",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-uglify": "^3.0.0"
   }
 }

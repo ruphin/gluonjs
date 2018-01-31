@@ -1,3 +1,45 @@
-<script type="module" src="./index.js"></script>
+<!-- To support all modern browsers, use the following setup -->
+<!-- BEGIN MODERN BROWSER BUNDLE -->
+<!-- <script type="module">
+  // Webcomponent polyfill on Edge
+  (function () {
+    if (!('registerElement' in document)) {
+      var e = document.createElement('script');
+      e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js';
+      // TODO: Load this before index.js loads, somehow.
+      document.head.appendChild(e);
+    }
+  })();
+</script> -->
+
+<!-- Load the app on browsers that support ES modules (Edge, Chrome, Safari) -->
+<!-- <script type="module" src="./index.js"></script> -->
+
+<!-- Load the polyfills and app on browsers that do not support modules (Firefox and older Safari) -->
+<!-- <script nomodule src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js"></script>
+<script nomodule src="../dist/gluon.umd.js"></script>
+<script nomodule src="./bundled.js"></script> -->
+<!-- END MODERN BROWSER BUNDLE -->
+
+
+<!-- To support IE11, serve it this and none of the above -->
+<!-- BEGIN IE11 BUNDLE -->
+<!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js"></script>
+  <script src="../dist/gluon.es5.js"></script>
+  <script src="./bundled.js"></script>
+-->
+<!-- END IE11 BUNDLE -->
+
+
+<!-- To support all browsers with a single super-inefficient package, use this -->
+<!-- BEGIN MULTIBROWSER BUNDLE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.1/custom-elements-es5-adapter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js"></script>
+<script src="../gluon.es5.js"></script>
+<script src="./bundled.js"></script>
+<!-- END MULTIBROWSER BUNDLE -->
 
 <hello-message name="World"></hello-message>
+
+<span id="browser-sync-binding"></span>
