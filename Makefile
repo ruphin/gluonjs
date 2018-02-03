@@ -1,5 +1,5 @@
 dev:
-	docker run -it --rm -v $$PWD:/app -p 5000:5000 ruphin/webdev yarn run dev
+	docker run -it --rm -v $$PWD:/app -p 5000:5000 ruphin/webdev npm run dev
 .PHONY: dev
 
 shell:
@@ -7,9 +7,13 @@ shell:
 .PHONY: shell
 
 build:
-	docker run -it --rm -v $$PWD:/app ruphin/webdev yarn run build
+	docker run -it --rm -v $$PWD:/app ruphin/webdev npm run build
 .PHONY: build
 
-publish: build
-	docker run -it --rm -v $$PWD:/app -v $$HOME/.gitconfig:/home/app/.gitconfig -v $$HOME/.ssh:/home/app/.ssh ruphin/webdev yarn publish
+publish:
+	docker run -v $$PWD:/app \
+						 -v $$HOME/.gitconfig:/home/app/.gitconfig \
+						 -v $$HOME/.npmrc:/home/app/.npmrc \
+						 -v $$HOME/.ssh:/home/app/.ssh \
+						 -it --rm ruphin/webdev npm run release
 .PHONY: publish
