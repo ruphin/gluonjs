@@ -16,7 +16,7 @@ function getConfig({ dest, format, uglified = true, transpiled = false, bundled 
   const conf = {
     input: 'src/gluon.js',
     output: { exports: 'named', file: dest, format, name: 'GluonJS', sourcemap: true },
-    external: [!bundled && path.resolve('./lit-html/lib/lit-extended.js')].filter(Boolean),
+    external: bundled ? [] : [path.resolve('./lit-html/lib/lit-extended.js'), path.resolve('./lit-html/lib/shady-render.js')],
     plugins: [
       bundled && includePaths(includePathOptions),
       transpiled && resolve(),

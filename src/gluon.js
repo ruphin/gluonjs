@@ -1,21 +1,8 @@
-import { render } from '../lit-html/lib/lit-extended.js';
+import { render } from '../lit-html/lib/shady-render.js';
 export { html } from '../lit-html/lib/lit-extended.js';
 
 const TAG = Symbol('tag');
 const NEEDSRENDER = Symbol('needsRender');
-const SHADYTEMPLATE = Symbol('shadyTemplate');
-
-const applyShadyCSS = element => {
-  if (window.ShadyCSS) {
-    const klass = element.constructor;
-    if (klass[SHADYTEMPLATE] === undefined) {
-      klass[SHADYTEMPLATE] = document.createElement('template');
-      klass[SHADYTEMPLATE].innerHTML = element.shadowRoot.innerHTML;
-      ShadyCSS.prepareTemplate(klass[SHADYTEMPLATE], klass.is);
-    }
-    ShadyCSS.styleElement(element);
-  }
-};
 
 const camelToKebab = camel => camel.replace(/([a-z])([A-Z])|(.)([A-Z][a-z])/g, '$1$3-$2$4').toLowerCase();
 
@@ -49,8 +36,7 @@ export class GluonElement extends HTMLElement {
     }
     if (this[NEEDSRENDER]) {
       this[NEEDSRENDER] = false;
-      render(this.template, this.shadowRoot);
-      applyShadyCSS(this);
+      render(this.template, this.shadowRoot, this.constructor.is);
     }
   }
 }
