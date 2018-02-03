@@ -1,18 +1,23 @@
 {
   "name": "gluonjs",
-  "version": "2.1.0",
+  "version": "2.2.0-pre.3",
   "description": "A tiny WebComponent library",
   "main": "gluon.js",
   "umd:main": "gluon.umd.js",
   "module": "gluon.js",
   "jsnext:main": "gluon.js",
-  "files": ["gluon.*"],
+  "files": [
+    "gluon.*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ruphin/gluonjs.git"
   },
   "author": "Goffert van Gool <ruphin@ruphin.net>",
-  "keywords": ["web-components", "webcomponents"],
+  "keywords": [
+    "web-components",
+    "webcomponents"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ruphin/gluonjs/issues"
@@ -20,8 +25,9 @@
   "scripts": {
     "build": "./node_modules/.bin/rollup -c",
     "dev": "./node_modules/.bin/browser-sync start --config browsersync.config.js",
-    "publish": "git add gluon.js",
-    "prepublish": "yarn run build"
+    "release": "echo 'Version: ' && read release_version && npm version $release_version",
+    "version": "npm run build",
+    "postversion": "npm publish && git push && git push --tags"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "dependencies": {
