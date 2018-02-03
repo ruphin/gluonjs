@@ -4,7 +4,9 @@ var gluon_js = GluonJS;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['<p>Hello ', '</p>'], ['<p>Hello ', '</p>']);
+var _templateObject = _taggedTemplateLiteral(['<style> p { color: firebrick } </style>'], ['<style> p { color: firebrick } </style>']);
+var _templateObject2 = _taggedTemplateLiteral(['\n      ', '\n      <p>Hello ', '</p>\n    '], ['\n      ', '\n      <p>Hello ', '</p>\n    ']);
+var _templateObject3 = _taggedTemplateLiteral(['<style> p { text-transform: uppercase } </style>'], ['<style> p { text-transform: uppercase } </style>']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -24,15 +26,40 @@ var HelloMessage = function (_GluonElement) {
   }
 
   _createClass(HelloMessage, [{
+    key: 'style',
+    get: function get() {
+      return gluon_js.html(_templateObject);
+    }
+  }, {
     key: 'template',
     get: function get() {
-      return gluon_js.html(_templateObject, this.getAttribute('name'));
+      return gluon_js.html(_templateObject2, this.style, this.getAttribute('name'));
     }
   }]);
 
   return HelloMessage;
 }(gluon_js.GluonElement);
 
+var LoudMessage = function (_HelloMessage) {
+  _inherits(LoudMessage, _HelloMessage);
+
+  function LoudMessage() {
+    _classCallCheck(this, LoudMessage);
+
+    return _possibleConstructorReturn(this, (LoudMessage.__proto__ || Object.getPrototypeOf(LoudMessage)).apply(this, arguments));
+  }
+
+  _createClass(LoudMessage, [{
+    key: 'style',
+    get: function get() {
+      return gluon_js.html(_templateObject3);
+    }
+  }]);
+
+  return LoudMessage;
+}(HelloMessage);
+
+customElements.define(LoudMessage.is, LoudMessage);
 customElements.define(HelloMessage.is, HelloMessage);
 
 }(gluon_js));
