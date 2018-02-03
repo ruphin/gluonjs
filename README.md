@@ -1,6 +1,6 @@
 # Gluonjs
 
-[Gluonjs](https://gluonjs.ruph.in/) is a **lightweight library** for building web applications. The latest 2.0 release (all dependencies included) weighs only 5.8Kb.
+[Gluonjs](https://gluonjs.ruph.in/) is a **lightweight library** for building web applications. The latest 2.2 release (with all dependencies bundled in) weighs only 2.8Kb.
 
 
 * **Platform Based:** GluonJS is designed to leverage the latest web platform capabilities, making it extremely small in size, and very performant on modern browsers. Additionally, it means that __build/compile steps are optional__; GluonJS components work on modern browsers without any pre-processing.
