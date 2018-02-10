@@ -1,0 +1,16 @@
+<meta charset="utf-8">
+
+<script type="module">
+  import { GluonElement, html } from '../gluon.js';
+  window.GluonJS = { GluonElement, html }
+
+  class TestElement extends GluonElement {
+    get template() {
+      return html`<div id="one">test</div><div id="two"></div><div class="irrelevant"></div>`;
+    }
+  }
+  customElements.define(TestElement.is, TestElement);
+
+</script>
+
+<test-element id="testElement">inner</test-element>

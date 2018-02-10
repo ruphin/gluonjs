@@ -23,11 +23,12 @@
     "url": "https://github.com/ruphin/gluonjs/issues"
   },
   "scripts": {
-    "build": "./node_modules/.bin/rollup -c",
-    "dev": "./node_modules/.bin/browser-sync start --config browsersync.config.js",
+    "build": "rollup -c",
+    "dev": "browser-sync start --config browsersync.config.js",
     "release": "read -p 'Version: ' release_version && npm version $release_version",
     "version": "npm run build",
-    "postversion": "npm publish && git push && git push --tags"
+    "postversion": "npm publish && git push && git push --tags",
+    "test": "mocha"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "dependencies": {
@@ -38,6 +39,9 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0",
+    "puppeteer": "^1.0.0",
     "rollup": "^0.55.1",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^8.3.0",
