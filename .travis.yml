@@ -3,7 +3,3 @@ node_js: node
 
 install: npm install && npm run build
 script: npm test
-
-sudo: required
-addons:
-  chrome: stable
