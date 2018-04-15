@@ -4,7 +4,7 @@ export { html } from '../lit-html/lib/lit-extended.js';
 const TAG = Symbol('tag');
 const NEEDSRENDER = Symbol('needsRender');
 
-const camelToKebab = camel => camel.replace(/([a-z])([A-Z])|(.)([A-Z][a-z])/g, '$1$3-$2$4').toLowerCase();
+const camelToKebab = camel => camel.replace(/([a-z](?=[A-Z]))|([A-Z](?=[A-Z][a-z]))/g, '$1$2-').toLowerCase();
 
 const createIdCache = element => {
   element.$ = {};

@@ -6,13 +6,7 @@ let browser = null;
 let page = null;
 
 before(async () => {
-  // const launchOptions = {};
-  // // Workaround till https://github.com/GoogleChrome/puppeteer/issues/290 is fixed
-  // if (process.env.LAUNCH_CHROME_NO_SANDBOX) {
-  //   console.warn('Launching Chrome with "--no-sandbox" option. ' + 'This is not recommended due to security reasons!');
-  //   Object.assign(launchOptions, { args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-  // }
-
+  // Workaround until https://github.com/GoogleChrome/puppeteer/issues/290 is fixed
   browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   page = await browser.newPage();
   await page.setViewport({
@@ -92,11 +86,11 @@ describe('GluonJS', () => {
       expect(result).to.be.equal('caps-last-element');
     });
 
-    it(`should be 'as-sh-ol-ec-as-eelement' for AsShOlEcAsEElement`, async () => {
+    it(`should be 'as-sh-ol-ec-as-e-element' for AsShOlEcAsEElement`, async () => {
       let result = await page.evaluate(() => {
         return class AsShOlEcAsEElement extends GluonElement {}.is;
       });
-      expect(result).to.be.equal('as-sh-ol-ec-as-eelement');
+      expect(result).to.be.equal('as-sh-ol-ec-as-e-element');
     });
   });
 });
