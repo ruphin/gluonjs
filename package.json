@@ -25,9 +25,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "browser-sync start --config browsersync.config.js",
-    "release": "read -p 'Version: ' release_version && npm version $release_version",
-    "version": "npm run build",
-    "postversion": "npm publish && git push && git push --tags",
+    "release": "np",
     "test": "mocha"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
@@ -41,6 +39,7 @@
     "browser-sync": "^2.18.13",
     "chai": "^4.1.2",
     "mocha": "^5.0.0",
+    "np": "^2.20.1",
     "puppeteer": "^1.3.0",
     "rollup": "^0.55.1",
     "rollup-plugin-babel": "^3.0.3",
