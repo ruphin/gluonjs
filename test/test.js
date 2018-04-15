@@ -5,14 +5,20 @@ const browserSync = require('browser-sync').create();
 let browser = null;
 let page = null;
 
-before(async () => {
+before(async function() {
+  // Set a higher timeout to allow puppeteer and browserSync time to start
+  this.timeout(5000);
+
   // Workaround until https://github.com/GoogleChrome/puppeteer/issues/290 is fixed
   browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+
   page = await browser.newPage();
+
   await page.setViewport({
     width: 1024,
     height: 768
   });
+
   await new Promise(resolve =>
     browserSync.init(
       {
@@ -40,6 +46,7 @@ describe('GluonJS', () => {
     beforeEach(async () => {
       await page.goto('http://localhost:5000/test/test-$.html');
     });
+
     it('should contain a key for each child with an ID', async () => {
       const keyCount = await page.evaluate(() => {
         const testElement = document.getElementById('testElement');
@@ -47,6 +54,7 @@ describe('GluonJS', () => {
       });
       expect(keyCount).to.be.equal(2);
     });
+
     it('should map to the elements by ID', async () => {
       const equality = await page.evaluate(() => {
         const testElement = document.getElementById('testElement');
@@ -55,16 +63,19 @@ describe('GluonJS', () => {
       expect(equality).to.be.true;
     });
   });
+
   describe(`'is' property`, () => {
     beforeEach(async () => {
       await page.goto('http://localhost:5000/test/test-is.html');
     });
+
     it(`should be 'regular-element' for RegularElement`, async () => {
       let result = await page.evaluate(() => {
         return class RegularElement extends GluonElement {}.is;
       });
       expect(result).to.be.equal('regular-element');
     });
+
     it(`should be 'caps-first-element' for CAPSFirstElement`, async () => {
       let result = await page.evaluate(() => {
         return class CAPSFirstElement extends GluonElement {}.is;
