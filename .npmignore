@@ -1,5 +1,9 @@
-src
-Dockerfile
-gulpfile.js
-.prettierignore
 Makefile
+Dockerfile
+src
+test
+index.html
+.prettierignore
+.travis.yml
+browsersync.config.js
+rollup.config.js
