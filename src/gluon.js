@@ -1,5 +1,5 @@
-import { render } from '../lit-html/lib/shady-render.js';
-export { html } from '../lit-html/lib/lit-extended.js';
+import { render } from '../@ruphin/lit-html/lib/shady-render.js';
+export { html } from '../@ruphin/lit-html/lib/lit-extended.js';
 
 const TAG = Symbol('tag');
 const NEEDSRENDER = Symbol('needsRender');
