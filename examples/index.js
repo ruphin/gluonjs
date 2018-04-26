@@ -10,6 +10,10 @@ class HelloMessage extends GluonElement {
       <p>Hello ${this.getAttribute('name')}</p>
     `;
   }
+  set name(value) {
+    this.setAttribute('name', value);
+    this.render();
+  }
 }
 
 class LoudMessage extends HelloMessage {

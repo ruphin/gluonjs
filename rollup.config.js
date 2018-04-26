@@ -40,7 +40,7 @@ function getConfig({ dest, format, uglified = true, transpiled = false, bundled 
 const example = ({ uglified = false } = {}) => {
   return {
     input: 'examples/index.js',
-    output: { file: 'examples/bundled.js', format: 'iife', sourcemap: false },
+    output: { file: 'examples/index.nomodule.js', format: 'iife', sourcemap: false },
     plugins: [
       includePaths(includePathOptions),
       babel({
