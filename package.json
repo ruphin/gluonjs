@@ -23,7 +23,7 @@
     "url": "https://github.com/ruphin/gluonjs/issues"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "cp src/*.js . && rollup -c",
     "dev": "browser-sync start --config browsersync.config.js",
     "release": "np",
     "test": "mocha"
