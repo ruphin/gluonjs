@@ -1,44 +1,14 @@
-<!-- To support all modern browsers, use the following setup -->
-<!-- BEGIN MODERN BROWSER BUNDLE -->
-<!-- <script type="module">
-  // Webcomponent polyfill on Edge
-  (function () {
-    if (!('registerElement' in document)) {
-      var e = document.createElement('script');
-      e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js';
-      // TODO: Load this before index.js loads, somehow.
-      document.head.appendChild(e);
-    }
-  })();
-</script> -->
+<!-- Always load the Webcomponents Polyfill to be sure (no-op on browsers that have support) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-lite.js"></script>
 
-<!-- Load the app on browsers that support ES modules (Edge, Chrome, Safari) -->
-<!-- <script type="module" src="./index.js"></script> -->
+<!-- This loads the bundle on Chrome, Edge, and Safari -->
+<script type="module" src="/index.js"></script>
 
-<!-- Load the polyfills and app on browsers that do not support modules (Firefox and older Safari) -->
-<!-- <script nomodule src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js"></script>
-<script nomodule src="../dist/gluon.umd.js"></script>
-<script nomodule src="./bundled.js"></script> -->
-<!-- END MODERN BROWSER BUNDLE -->
-
-
-<!-- To support IE11, serve it this and none of the above -->
-<!-- BEGIN IE11 BUNDLE -->
-<!--
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js"></script>
-  <script src="../dist/gluon.es5.js"></script>
-  <script src="./bundled.js"></script>
--->
-<!-- END IE11 BUNDLE -->
-
-
-<!-- To support all browsers with a single super-inefficient package, use this -->
-<!-- BEGIN MULTIBROWSER BUNDLE -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.1/custom-elements-es5-adapter.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-sd-ce.js"></script>
-<script src="../gluon.es5.js"></script>
-<script src="./bundled.js"></script>
-<!-- END MULTIBROWSER BUNDLE -->
+<!-- This loads the bundle on other browsers (Firefox and IE11) -->
+<script nomodule src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/custom-elements-es5-adapter.js"></script>
+<script nomodule src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+<!-- Take a look at rollup.config.js to see how to build this guy -->
+<script nomodule src="./index.nomodule.js"></script>
 
 <hello-message name="World"></hello-message>
 <loud-message name="World!"></loud-message>
