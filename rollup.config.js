@@ -7,7 +7,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import * as path from 'path';
 
 const includePathOptions = {
-  paths: ['node_modules/gluonjs', '.'],
+  paths: ['node_modules/@gluon/gluon', '.'],
   extensions: ['.js']
 };
 

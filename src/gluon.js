@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-import { render } from '../lit-html/lib/shady-render.js';
-export { html } from '../lit-html/lib/lit-extended.js';
+import { render } from '../../lit-html/lib/shady-render.js';
+export { html } from '../../lit-html/lib/lit-extended.js';
 
 // Key to store the HTML tag in a custom element class
 const TAG = Symbol('tag');
