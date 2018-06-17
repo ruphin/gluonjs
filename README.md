@@ -8,10 +8,10 @@ _A lightweight library for building web components and applications_
 
 ---
 
-* **Platform Based:** GluonJS is designed to leverage the latest web platform capabilities, making it extremely small in size, and very performant on modern browsers. Additionally, it means that **build/compile steps are optional**; GluonJS components work on modern browsers without any pre-processing.
-* **Component Model:** Build components with encapsulated logic and style, then compose them to make complex interfaces. Uses the Web Component standards, with all related APIs available directly to developers.
-* **Highly Reusable:** Because GluonJS creates standards-compliant Web Components, you can use components created with GluonJS in almost any existing application. Check [Custom Elements Everywhere](https://custom-elements-everywhere.com/) for up-to-date compatibility tables with existing frameworks.
-* **Powerful Templating:** GluonJS uses [lit-html](https://github.com/PolymerLabs/lit-html) for templating, making it highly expressive and flexible.
+- **Platform Based:** GluonJS is designed to leverage the latest web platform capabilities, making it extremely small in size, and very performant on modern browsers. Additionally, it means that **build/compile steps are optional**; GluonJS components work on modern browsers without any pre-processing.
+- **Component Model:** Build components with encapsulated logic and style, then compose them to make complex interfaces. Uses the Web Component standards, with all related APIs available directly to developers.
+- **Highly Reusable:** Because GluonJS creates standards-compliant Web Components, you can use components created with GluonJS in almost any existing application. Check [Custom Elements Everywhere](https://custom-elements-everywhere.com/) for up-to-date compatibility tables with existing frameworks.
+- **Powerful Templating:** GluonJS uses [lit-html](https://github.com/PolymerLabs/lit-html) for templating, making it highly expressive and flexible.
 
 ## Concepts
 
@@ -201,13 +201,13 @@ GluonJS is available through [npm](https://www.npmjs.com) as `gluonjs`.
 
 ## Compatibility
 
-| Chrome | Safari | Edge | Firefox | IE   |
-| ------ | ------ | ---- | ------- | ---- |
-| ✔      | ✔      | \*   | \* †    | \* † |
+| Chrome | Safari | Firefox | Edge | IE   |
+| ------ | ------ | ------- | ---- | ---- |
+| ✔      | ✔      | \*      | \*   | \* † |
 
 \* Requires [Web Component polyfill](https://www.webcomponents.org/polyfills/)
 
-† Requires ES6 Module bundling
+† Requires transpiling to ES5
 
 ## Contributing
 
