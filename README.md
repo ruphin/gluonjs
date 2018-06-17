@@ -1,7 +1,7 @@
 # Gluonjs
 
 [![Build Status](https://api.travis-ci.org/ruphin/gluonjs.svg?branch=master)](https://travis-ci.org/ruphin/gluonjs)
-[![NPM Latest version](https://img.shields.io/npm/v/gluonjs.svg)](https://www.npmjs.com/package/@gluon/gluon)
+[![NPM Latest version](https://img.shields.io/npm/v/@gluon/gluon.svg)](https://www.npmjs.com/package/@gluon/gluon)
 [![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 _A lightweight library for building web components and applications_
