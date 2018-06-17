@@ -1,7 +1,7 @@
 # Gluonjs
 
 [![Build Status](https://api.travis-ci.org/ruphin/gluonjs.svg?branch=master)](https://travis-ci.org/ruphin/gluonjs)
-[![NPM Latest version](https://img.shields.io/npm/v/gluonjs.svg)](https://www.npmjs.com/package/gluonjs)
+[![NPM Latest version](https://img.shields.io/npm/v/gluonjs.svg)](https://www.npmjs.com/package/@gluon/gluon)
 [![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 _A lightweight library for building web components and applications_
@@ -18,7 +18,7 @@ _A lightweight library for building web components and applications_
 ###
 
 ```javascript
-import { GluonElement } from '/node_modules/gluonjs/gluon.js';
+import { GluonElement } from '/node_modules/@gluon/gluon/gluon.js';
 
 class MyElement extends GluonElement {
   // ...
@@ -53,7 +53,7 @@ Returns a kebab-cased version of the element ClassName, as an easy default tagna
 
 ### render()
 
-Calling `render()` on an element will queue render task at the next [microtiming](?). Multiple calls are automatically batched into a single render.
+Calling `render()` on an element will queue a render at the next [microtask timing](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/). Multiple calls are automatically batched into a single render.
 
 Returns a promise object that is fulfilled after the render is complete.
 
@@ -173,7 +173,7 @@ Here is an example of a GluonJS component:
 
 ```javascript
 // helloMessage.js
-import { GluonElement, html } from '/node_modules/gluonjs/gluon.js';
+import { GluonElement, html } from '/node_modules/@gluon/gluon/gluon.js';
 
 class HelloMessage extends GluonElement {
   get template() {
@@ -197,7 +197,7 @@ This example will render "Hello World".
 
 ## Installation
 
-GluonJS is available through [npm](https://www.npmjs.com) as `gluonjs`.
+GluonJS is available through [npm](https://www.npmjs.com) as `@gluon/gluon`.
 
 ## Compatibility
 
