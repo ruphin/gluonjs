@@ -1,11 +1,11 @@
-<!-- Always load the Webcomponents Polyfill to be sure (no-op on browsers that have support) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-lite.js"></script>
-
-<!-- This loads the bundle on Chrome, Edge, and Safari -->
+<!-- This loads the app as a module on Chrome, Edge, Firefox, and Safari -->
+<!-- Modules are always nonblocking, and they load after regular scripts, so we can put them first -->
 <script type="module" src="/index.js"></script>
 
-<!-- This loads the bundle on other browsers (Firefox and IE11) -->
-<script nomodule src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/custom-elements-es5-adapter.js"></script>
+<!-- Always load the Webcomponents Polyfill (no-op on browsers that have support) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.0.2/webcomponents-bundle.js"></script>
+
+<!-- This loads the app on IE11 -->
 <script nomodule src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
 <!-- Take a look at rollup.config.js to see how to build this guy -->
 <script nomodule src="./index.nomodule.js"></script>
