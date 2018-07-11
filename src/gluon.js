@@ -32,6 +32,12 @@ const TAG = Symbol('tag');
 // Key to store render status in a custom element instance
 const NEEDSRENDER = Symbol('needsRender');
 
+const NOTBLOCKED = Symbol('notBlocked');
+const notBlocked = element => {
+  const blockingProperties = element.constructor.blockingProperties;
+  return !blockingProperties || blockingProperties.every(blockingProp => element[blockingProp] !== undefined);
+};
+
 // Transforms a camelCased string into a kebab-cased string
 const camelToKebab = camel => camel.replace(/([a-z](?=[A-Z]))|([A-Z](?=[A-Z][a-z]))/g, '$1$2-').toLowerCase();
 
@@ -64,6 +70,31 @@ export class GluonElement extends HTMLElement {
     return (this.hasOwnProperty(TAG) && this[TAG]) || (this[TAG] = camelToKebab(this.name));
   }
 
+  constructor() {
+    super();
+    const blockingProperties = this.constructor.blockingProperties;
+    if (blockingProperties) {
+      blockingProperties.forEach(blockingProperty => {
+        if (this[blockingProperty] === undefined) {
+          Object.defineProperty(this, blockingProperty, {
+            configurable: true,
+            enumerable: true,
+            set(value) {
+              if (value !== undefined) {
+                delete this[blockingProperty];
+              }
+              this[blockingProperty] = value;
+              this.render();
+            },
+            get() {
+              return this.constructor.prototype[blockingProperty];
+            }
+          });
+        }
+      });
+    }
+  }
+
   /**
    * Called when an element is connected to the DOM
    *
@@ -79,7 +110,6 @@ export class GluonElement extends HTMLElement {
     if ('template' in this) {
       this.attachShadow({ mode: 'open' });
       this.render({ sync: true });
-      createIdCache(this);
     }
   }
 
@@ -97,8 +127,14 @@ export class GluonElement extends HTMLElement {
       await 0;
     }
     if (this[NEEDSRENDER]) {
-      this[NEEDSRENDER] = false;
-      render(this.template, this.shadowRoot, this.constructor.is);
+      if (this[NOTBLOCKED] || notBlocked(this)) {
+        this[NEEDSRENDER] = false;
+        render(this.template, this.shadowRoot, this.constructor.is);
+        if (!this[NOTBLOCKED]) {
+          createIdCache(this);
+          this[NOTBLOCKED] = true;
+        }
+      }
     }
   }
 }
