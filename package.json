@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "dependencies": {
-    "lit-html": "^0.10.2"
+    "html-lite": "git://github.com/ruphin/html-lite.git"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
