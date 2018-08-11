@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-import { render } from '../../html-lite/src/html-lite.js';
-export { html } from '../../html-lite/src/html-lite.js';
+import { render } from '../node_modules/lite-html/lite-html.js';
+export { html } from '../node_modules/lite-html/lite-html.js';
 
 // Key to store the HTML tag in a custom element class
 const TAG = Symbol('tag');
@@ -38,7 +38,7 @@ const camelToKebab = camel => camel.replace(/([a-z](?=[A-Z]))|([A-Z](?=[A-Z][a-z
 // Creates an ID cache in the `$` property of a custom element instance
 const createIdCache = element => {
   element.$ = {};
-  element.shadowRoot.querySelectorAll('[id]').forEach(node => {
+  element.__root.querySelectorAll('[id]').forEach(node => {
     element.$[node.id] = node;
   });
 };
@@ -53,6 +53,20 @@ const createIdCache = element => {
  *  - Creates a cache for descendant nodes with an `id` in the `$` property
  */
 export class GluonElement extends HTMLElement {
+  constructor() {
+    super();
+    if (this.constructor.light) {
+      this.__root = this;
+    } else {
+      this.attachShadow({ mode: 'open' });
+      this.__root = this.shadowRoot;
+    }
+    Object.getOwnPropertyNames(this).forEach(property => {
+      const propertyValue = this[property];
+      delete this[property];
+      this[property] = propertyValue;
+    });
+  }
   /**
    * Returns the HTML tagname for elements of this class
    *
@@ -77,7 +91,6 @@ export class GluonElement extends HTMLElement {
    */
   connectedCallback() {
     if ('template' in this) {
-      this.attachShadow({ mode: 'open' });
       this.render({ sync: true });
       createIdCache(this);
     }
@@ -98,7 +111,7 @@ export class GluonElement extends HTMLElement {
     }
     if (this[NEEDSRENDER]) {
       this[NEEDSRENDER] = false;
-      render(this.template, this.shadowRoot, this.constructor.is);
+      render(this.template, this.__root, this.constructor.is);
     }
   }
 }

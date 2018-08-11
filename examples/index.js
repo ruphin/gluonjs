@@ -1,9 +1,9 @@
-import { html, GluonElement } from '../gluon.js';
+import { html, GluonElement } from '../src/gluon.js';
 
 class HelloMessage extends GluonElement {
   get style() {
     return html`
-      <style> p { color: firebrick; font-weight: bold } </style>
+      <style> p { color: firebrick } </style>
     `;
   }
   get template() {
@@ -18,7 +18,7 @@ class LoudMessage extends HelloMessage {
   get style() {
     return html`
       ${super.style}
-      <style> p { text-transform: uppercase } </style>
+      <style> p { text-transform: uppercase; font-weight: bold } </style>
     `;
   }
 }
