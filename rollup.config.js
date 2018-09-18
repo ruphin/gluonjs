@@ -45,7 +45,7 @@ function getConfig({ dest, format, minified = false, transpiled = false, bundled
   const conf = {
     input: 'src/gluon.js',
     output: { banner: license(minified), file: dest, name: 'GluonJS', format, sourcemap: !minified },
-    external: bundled ? [] : [path.resolve('./node_modules/lite-html/lite-html.js')],
+    external: bundled ? [] : [path.resolve('./node_modules/lit-html/lit-html.js')],
     plugins: [
       bundled && includePaths(includePathOptions),
       transpiled && resolve(),
@@ -97,7 +97,7 @@ const example = ({ minified = false } = {}) => {
 const config = [
   getConfig({ dest: 'gluon.es5.js', format: 'iife', transpiled: true }),
   getConfig({ dest: 'gluon.umd.js', format: 'umd' }),
-  getConfig({ dest: 'gluon.js', format: 'es' }),
+  getConfig({ dest: 'gluon.js', format: 'es', bundled: false }),
   // Test bundled file sizes
   getConfig({ dest: '/dev/null', format: 'es', minified: true, bundled: false }),
   getConfig({ dest: '/dev/null', format: 'es', minified: true }),

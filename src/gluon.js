@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-import { render } from '../node_modules/lite-html/lite-html.js';
-export { html } from '../node_modules/lite-html/lite-html.js';
+import { render } from '../node_modules/lit-html/lit-html.js';
+export { html } from '../node_modules/lit-html/lit-html.js';
 
 // Key to store the HTML tag in a custom element class
 const TAG = Symbol('tag');
@@ -55,18 +55,27 @@ const createIdCache = element => {
 export class GluonElement extends HTMLElement {
   constructor() {
     super();
-    if (this.constructor.light) {
-      this.__root = this;
-    } else {
-      this.attachShadow({ mode: 'open' });
-      this.__root = this.shadowRoot;
-    }
+    this.renderRoot = this.createRenderRoot();
+
+    // This ensures that any properties that are set prior to upgrading this element
+    // have their instance setters called
     Object.getOwnPropertyNames(this).forEach(property => {
       const propertyValue = this[property];
       delete this[property];
       this[property] = propertyValue;
     });
   }
+
+  /**
+   * Returns an open shadowRoot as the default rendering root
+   *
+   * Override this method to provide an alternative rendering root
+   * For example, return `this` to render the template as childNodes
+   */
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open' });
+  }
+
   /**
    * Returns the HTML tagname for elements of this class
    *
@@ -111,7 +120,7 @@ export class GluonElement extends HTMLElement {
     }
     if (this[NEEDSRENDER]) {
       this[NEEDSRENDER] = false;
-      render(this.template, this.__root, this.constructor.is);
+      render(this.template, this.renderRoot, this.constructor.is);
     }
   }
 }
