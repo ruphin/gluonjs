@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+<script nomodule src="../node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+<link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+
+<script src="../node_modules/mocha/mocha.js"></script>
+<script src="../node_modules/chai/chai.js"></script>
+
+<script>mocha.setup('bdd')</script>
+
+<div id="mocha"></div>
+
+<script nomodule src="./index.es5.js"></script>
+<script nomodule>mocha.run();</script>
+
+<script type="module" src="./index.js"></script>
+<script type="module">mocha.run();</script>

@@ -10,6 +10,10 @@ shell:
 test:
 	docker run -it --rm -v $$PWD:/app ruphin/webdev npm run test
 
+.PHONY: guard
+guard:
+	docker run -it --rm -v $$PWD:/app ruphin/webdev npm run guard
+
 .PHONY: build
 build:
 	docker run -it --rm -v $$PWD:/app ruphin/webdev npm run build

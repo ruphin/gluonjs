@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-import { render } from '../node_modules/lit-html/lit-html.js';
-export { html } from '../node_modules/lit-html/lit-html.js';
+import { render } from '../node_modules/lit-html/lib/shady-render.js';
+export { html } from '../node_modules/lit-html/lib/shady-render.js';
 
 // Key to store the HTML tag in a custom element class
 const TAG = Symbol('tag');
@@ -38,7 +38,7 @@ const camelToKebab = camel => camel.replace(/([a-z](?=[A-Z]))|([A-Z](?=[A-Z][a-z
 // Creates an ID cache in the `$` property of a custom element instance
 const createIdCache = element => {
   element.$ = {};
-  element.__root.querySelectorAll('[id]').forEach(node => {
+  element.renderRoot.querySelectorAll('[id]').forEach(node => {
     element.$[node.id] = node;
   });
 };
