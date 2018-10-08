@@ -2,12 +2,14 @@
 <!-- Modules are always nonblocking, and they load after regular scripts, so we can put them first -->
 <script type="module" src="/index.js"></script>
 
+<!-- Basic Polyfills for IE11 -->
+<script nomodule src="/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+
 <!-- Always load the Webcomponents Polyfill (no-op on browsers that have support) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.0.2/webcomponents-bundle.js"></script>
+<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
 <!-- This loads the app on IE11 -->
-<script nomodule src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
-<!-- Take a look at rollup.config.js to see how to build this guy -->
+<!-- Take a look at rollup.config.js to see how to build this -->
 <script nomodule src="./index.nomodule.js"></script>
 
 <hello-message name="World"></hello-message>
