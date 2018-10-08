@@ -2,7 +2,7 @@
  * @license
  * MIT License
  *
- * Copyright (c) 2017 Goffert van Gool
+ * Copyright (c) 2018 Goffert van Gool
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-import { render } from '../lit-html/lib/shady-render.js';
-export { html } from '../lit-html/lib/shady-render.js';
+import { render } from '../../lit-html/lib/shady-render.js';
+export { html } from '../../lit-html/lib/shady-render.js';
 
 // Key to store the HTML tag in a custom element class
 const TAG = Symbol('tag');
@@ -120,7 +120,7 @@ export class GluonElement extends HTMLElement {
     }
     if (this[NEEDSRENDER]) {
       this[NEEDSRENDER] = false;
-      render(this.template, this.renderRoot, this.constructor.is);
+      render(this.template, this.renderRoot, { scopeName: this.constructor.is, eventContext: this });
     }
   }
 }
