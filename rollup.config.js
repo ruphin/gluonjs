@@ -37,7 +37,7 @@ const license = min =>
 `;
 
 const includePathOptions = {
-  paths: ['node_modules/@gluon/gluon', '.'],
+  paths: ['node_modules/lit-html/lib', '.'],
   extensions: ['.js']
 };
 
@@ -45,9 +45,9 @@ function getConfig({ dest, format, minified = false, transpiled = false, bundled
   const conf = {
     input: 'src/gluon.js',
     output: { banner: license(minified), file: dest, name: 'GluonJS', format, sourcemap: !minified },
-    external: bundled ? [] : [path.resolve('./node_modules/lit-html/lit-html.js')],
+    external: [!bundled && path.resolve('./node_modules/lit-html/lib/shady-render.js')].filter(Boolean),
     plugins: [
-      bundled && includePaths(includePathOptions),
+      includePaths(includePathOptions),
       transpiled && resolve(),
       transpiled &&
         commonjs({
@@ -58,11 +58,11 @@ function getConfig({ dest, format, minified = false, transpiled = false, bundled
           presets: [['env', { modules: false }]],
           plugins: ['external-helpers']
         }),
-      // Remove @license comments
+      // Remove duplicate license
       !minified &&
         cleanup({
           maxEmptyLines: 1,
-          comments: [/^[\*\s]*[^@\*\s]/]
+          comments: [/^((?!\(c\) \d{4} Goffert)[\s\S])*$/]
         }),
       minified &&
         terser({
@@ -79,29 +79,42 @@ function getConfig({ dest, format, minified = false, transpiled = false, bundled
   return conf;
 }
 
-const example = ({ minified = false } = {}) => {
-  return {
-    input: 'examples/index.js',
-    output: { file: 'examples/index.nomodule.js', format: 'iife', sourcemap: false },
-    plugins: [
-      includePaths(includePathOptions),
-      babel({
-        presets: [['env', { modules: false }]],
-        plugins: ['external-helpers']
-      }),
-      minified && terser({ warnings: true, toplevel: true, keep_fnames: true, sourceMap: true, compress: { passes: 2 }, mangle: { keep_fnames: true } })
-    ].filter(Boolean)
-  };
+const example = {
+  input: 'examples/index.js',
+  output: { file: 'examples/index.es5.js', format: 'iife', sourcemap: false },
+  plugins: [
+    includePaths(includePathOptions),
+    babel({
+      presets: [['env', { modules: false }]],
+      plugins: ['external-helpers']
+    })
+  ]
+};
+
+const test = {
+  input: 'test/index.js',
+  output: { file: 'test/index.es5.js', format: 'iife', sourcemap: false },
+  plugins: [
+    includePaths(includePathOptions),
+    babel({
+      presets: [['env', { modules: false }]],
+      plugins: ['external-helpers']
+    })
+  ],
+  onwarn: (warning, warn) => {
+    if (warning.code === 'THIS_IS_UNDEFINED') return;
+    warn(warning);
+  }
 };
 
 const config = [
   getConfig({ dest: 'gluon.es5.js', format: 'iife', transpiled: true }),
   getConfig({ dest: 'gluon.umd.js', format: 'umd' }),
-  getConfig({ dest: 'gluon.js', format: 'es', bundled: false }),
   // Test bundled file sizes
   getConfig({ dest: '/dev/null', format: 'es', minified: true, bundled: false }),
   getConfig({ dest: '/dev/null', format: 'es', minified: true }),
-  example({ minified: true })
+  example,
+  test
 ];
 
 export default config;

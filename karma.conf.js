@@ -10,6 +10,12 @@ module.exports = function(config) {
       { pattern: 'node_modules/@webcomponents/webcomponentsjs/**', included: false, watched: false },
       { pattern: 'node_modules/babel-polyfill/dist/polyfill.min.js', included: false, watched: false }
     ],
+    proxies: {
+      '/lit-html/': {
+        target: '/base/node_modules/lit-html/',
+        changeOrigin: true
+      }
+    },
     reporters: ['mocha'],
     browsers: ['DockerChromeHeadless'],
     customLaunchers: {
