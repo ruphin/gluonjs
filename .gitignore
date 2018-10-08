@@ -1,3 +1,4 @@
 node_modules
-examples/index.nomodule.js
+examples/index.es5.js
+test/index.es5.js
 gluon.*

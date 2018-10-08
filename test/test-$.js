@@ -24,11 +24,11 @@ const setup = () => {
 describe(`'$' property`, () => {
   beforeEach(() => setup());
 
-  it('should contain a key for each child with an ID', async () => {
+  it('should contain a key for each child with an ID', () => {
     expect(Object.keys(testElement.$).length).to.be.equal(2);
   });
 
-  it('should map to the elements by ID', async () => {
+  it('should map to the elements by ID', () => {
     expect(testElement.$.one).to.equal(testElement.shadowRoot.getElementById('one'));
     expect(testElement.$.two).to.equal(testElement.shadowRoot.getElementById('two'));
   });
