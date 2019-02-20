@@ -19,7 +19,7 @@ build:
 	docker run -it --rm -v $$PWD:/app ruphin/webdev npm run build
 
 .PHONY: release
-release:
+release: build
 	docker run -v $$PWD:/app \
 						 -v $$HOME/.gitconfig:/home/app/.gitconfig \
 						 -v $$HOME/.npmrc:/home/app/.npmrc \

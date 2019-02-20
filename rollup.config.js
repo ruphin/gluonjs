@@ -14,7 +14,7 @@ const license = min =>
  * @license
  * MIT License
  *
- * Copyright (c) 2018 Goffert van Gool
+ * Copyright (c) 2019 Goffert van Gool
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,8 +55,7 @@ function getConfig({ dest, format, minified = false, transpiled = false, bundled
         }),
       transpiled &&
         babel({
-          presets: [['env', { modules: false }]],
-          plugins: ['external-helpers']
+          presets: [['@babel/preset-env', { modules: false }]]
         }),
       // Remove duplicate license
       !minified &&
@@ -85,8 +84,7 @@ const example = {
   plugins: [
     includePaths(includePathOptions),
     babel({
-      presets: [['env', { modules: false }]],
-      plugins: ['external-helpers']
+      presets: [['@babel/preset-env', { modules: false }]]
     })
   ]
 };
@@ -97,8 +95,7 @@ const test = {
   plugins: [
     includePaths(includePathOptions),
     babel({
-      presets: [['env', { modules: false }]],
-      plugins: ['external-helpers']
+      presets: [['@babel/preset-env', { modules: false }]]
     })
   ],
   onwarn: (warning, warn) => {
