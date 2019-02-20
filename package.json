@@ -1,6 +1,6 @@
 {
   "name": "@gluon/gluon",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "A tiny WebComponent library",
   "main": "gluon.js",
   "umd:main": "gluon.umd.js",
