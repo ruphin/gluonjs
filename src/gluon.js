@@ -32,6 +32,9 @@ const TAG = Symbol('tag');
 // Key to store render status in a custom element instance
 const NEEDSRENDER = Symbol('needsRender');
 
+// Key to store render status in a custom element instance
+const RENDERPROMISE = Symbol('needsRender');
+
 // Transforms a camelCased string into a kebab-cased string
 const camelToKebab = camel => camel.replace(/([a-z](?=[A-Z]))|([A-Z](?=[A-Z][a-z]))/g, '$1$2-').toLowerCase();
 
@@ -113,14 +116,53 @@ export class GluonElement extends HTMLElement {
    *
    * @returns a Promise that resolves once template has been rendered
    */
-  async render({ sync = false } = {}) {
-    this[NEEDSRENDER] = true;
-    if (!sync) {
-      await 0;
+  async render() {
+    if (!this[RENDERREQUESTED]) {
+      this[RENDERREQUESTED] = true;
+      const rendered = window.requestRender(this);
+      rendered.then((this[RENDERREQUESTED] = false));
+      this[RENDERPROMISE] = rendered;
     }
-    if (this[NEEDSRENDER]) {
-      this[NEEDSRENDER] = false;
-      render(this.template, this.renderRoot, { scopeName: this.constructor.is, eventContext: this });
-    }
+    return this[RENDERPROMISE];
+    // Alternatively
+    // return window.requestRender(this);
+  }
+
+  renderCallback() {
+    render(this.template, this.renderRoot, { scopeName: this.constructor.is, eventContext: this });
   }
 }
+
+let elementQueue = [];
+let renderPromise;
+
+window.requestRender = function(customElement) {
+  if (elementQueue.includes(customElement)) {
+    return renderPromise;
+  }
+  elementQueue.push(customElement);
+  if (renderPromise === undefined) {
+    renderPromise = new Promise(res => {
+      window.requestAnimationFrame(() => {
+        resolveRender(res);
+      });
+    });
+  }
+};
+
+const resolveRender = resolve => {
+  let topNode = elementQueue.pop();
+
+  elementQueue.forEach(node => {
+    let root = node.getRootNode();
+    while (/*root not DocumentFragment or Document or node*/) {
+      root = root.getRootNode();
+    }
+    if (/* root.host */) {
+      // Continue search from host
+    }
+  })
+  // Sort elements in elementQueue by document hierarchy
+  // Call renderCallback on each element in the queue
+  resolve();
+};
