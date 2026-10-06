@@ -211,7 +211,7 @@ GluonJS is available through [npm](https://www.npmjs.com) as `@gluon/gluon`.
 
 ## Contributing
 
-All work on GluonJS happens in the open on [Github](https://github.com/ruphin/gluonjs). A development environment is available at `localhost:5000` with `npm install && npm run dev`, or `make dev` if you use [Docker](https://www.docker.com/). All issue reports and pull requests are welcome.
+All work on GluonJS happens in the open on [Github](https://github.com/ruphin/gluonjs). A development environment is available at `localhost:5000` with `npm install && npm run dev`. Run the tests with `npm test`, and build the distributable files with `npm run build`. All issue reports and pull requests are welcome.
 
 ## License
 

@@ -1,18 +1,5 @@
-<!-- This loads the app as a module on Chrome, Edge, Firefox, and Safari -->
-<!-- Modules are always nonblocking, and they load after regular scripts, so we can put them first -->
+<!DOCTYPE html>
 <script type="module" src="/index.js"></script>
-
-<!-- Basic Polyfills for IE11 -->
-<script nomodule src="/node_modules/@babel/polyfill/dist/polyfill.min.js"></script>
-
-<!-- Always load the Webcomponents Polyfill (no-op on browsers that have support) -->
-<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-
-<!-- This loads the app on IE11 -->
-<!-- Take a look at rollup.config.js to see how to build this -->
-<script nomodule src="./index.nomodule.js"></script>
 
 <hello-message name="World"></hello-message>
 <loud-message name="World!"></loud-message>
-
-<span id="browser-sync-binding"></span>

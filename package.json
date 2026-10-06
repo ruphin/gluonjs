@@ -28,40 +28,21 @@
     "url": "https://github.com/ruphin/gluonjs/issues"
   },
   "scripts": {
-    "build": "rollup -c && cp src/gluon.js gluon.js",
-    "dev": "browser-sync start --config browsersync.config.js",
-    "release": "np",
-    "test": "karma start",
-    "guard": "karma start --no-single-run"
+    "dev": "vite",
+    "build": "vite build && vite build --mode umd",
+    "test": "vitest run",
+    "guard": "vitest",
+    "prepublishOnly": "npm run build",
+    "release": "np"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
   "dependencies": {
-    "@babel/core": "^7.3.3",
     "lit-html": "1.0.0"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "2.2.7",
-    "@babel/core": "7.3.3",
-    "@babel/plugin-external-helpers": "7.2.0",
-    "@babel/preset-env": "7.3.1",
-    "@babel/polyfill": "7.2.5",
-    "browser-sync": "2.26.3",
-    "chai": "4.2.0",
-    "karma": "3.0.0",
-    "karma-chai": "0.1.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-firefox-launcher": "1.1.0",
-    "karma-mocha": "1.3.0",
-    "karma-mocha-reporter": "2.2.5",
-    "mocha": "6.0.0",
+    "jsdom": "^30.1.2",
     "np": "4.0.2",
-    "rollup": "1.2.2",
-    "rollup-plugin-babel": "4.3.2",
-    "rollup-plugin-commonjs": "9.2.0",
-    "rollup-plugin-cleanup": "3.1.1",
-    "rollup-plugin-filesize": "6.0.1",
-    "rollup-plugin-includepaths": "0.2.3",
-    "rollup-plugin-node-resolve": "4.0.0",
-    "rollup-plugin-terser": "4.0.4"
+    "vite": "^8.3.3",
+    "vitest": "^5.0.3"
   }
 }

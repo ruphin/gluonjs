@@ -1,9 +1,6 @@
-Makefile
-Dockerfile
 src
 test
-index.html
+examples
 .prettierignore
 .travis.yml
-browsersync.config.js
-rollup.config.js
+vite.config.mjs

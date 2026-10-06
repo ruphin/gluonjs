@@ -1,6 +1,5 @@
+import { describe, it, beforeEach, expect } from 'vitest';
 import { GluonElement, html } from '../src/gluon.js';
-
-const expect = chai.expect;
 
 class TestDollarElement extends GluonElement {
   get template() {
@@ -25,11 +24,11 @@ describe(`'$' property`, () => {
   beforeEach(() => setup());
 
   it('should contain a key for each child with an ID', () => {
-    expect(Object.keys(testElement.$).length).to.be.equal(2);
+    expect(Object.keys(testElement.$).length).toBe(2);
   });
 
   it('should map to the elements by ID', () => {
-    expect(testElement.$.one).to.equal(testElement.shadowRoot.getElementById('one'));
-    expect(testElement.$.two).to.equal(testElement.shadowRoot.getElementById('two'));
+    expect(testElement.$.one).toBe(testElement.shadowRoot.getElementById('one'));
+    expect(testElement.$.two).toBe(testElement.shadowRoot.getElementById('two'));
   });
 });
