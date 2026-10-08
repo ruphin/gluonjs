@@ -1,13 +1,12 @@
 {
   "name": "@gluon/gluon",
   "version": "2.5.3",
-  "description": "A tiny WebComponent library",
-  "main": "gluon.js",
-  "umd:main": "gluon.umd.js",
-  "module": "gluon.js",
-  "jsnext:main": "gluon.js",
+  "description": "A tiny base class for Web Components, rendered with lite-html",
+  "main": "./dist/gluon.js",
+  "types": "./dist/gluon.d.ts",
+  "unpkg": "dist/gluon.min.js",
   "files": [
-    "gluon.*"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -17,8 +16,8 @@
   "keywords": [
     "web-components",
     "webcomponents",
-    "lit-html",
-    "lit"
+    "lite-html",
+    "custom-elements"
   ],
   "license": "MIT",
   "publishConfig": {
@@ -28,21 +27,33 @@
     "url": "https://github.com/ruphin/gluonjs/issues"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && vite build --mode umd",
+    "dev": "vite examples",
+    "build": "vite build && vite build --mode bundle && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "guard": "vitest",
-    "prepublishOnly": "npm run build",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run typecheck && npm run build && npm test",
     "release": "np"
   },
   "homepage": "https://github.com/ruphin/gluonjs",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/gluon.d.ts",
+      "default": "./dist/gluon.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
-    "lit-html": "1.0.0"
+    "lite-html": "file:../lite-html"
   },
   "devDependencies": {
     "jsdom": "^30.1.2",
     "np": "4.0.2",
-    "vite": "^8.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2",
     "vitest": "^5.0.3"
   }
 }

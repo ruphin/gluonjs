@@ -1,6 +1,0 @@
-src
-test
-examples
-.prettierignore
-.travis.yml
-vite.config.mjs
