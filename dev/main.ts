@@ -1,4 +1,6 @@
-import { GluonElement, define, html, css, type Styles } from '../src/gluon.js';
+// Import by package name, exactly as a consumer would.
+// dev/vite.config.ts aliases the package to ../src during development.
+import { GluonElement, define, html, css, type Styles } from "@gluon/gluon";
 
 class HelloMessage extends GluonElement {
   // A class that is extended by a class with its own styles needs the annotation
@@ -7,7 +9,7 @@ class HelloMessage extends GluonElement {
   `;
   static override properties = { name: { attribute: true } };
 
-  name = '';
+  name = "";
 
   override render() {
     return html`<p>Hello ${this.name}</p>`;
@@ -21,7 +23,6 @@ class LoudMessage extends HelloMessage {
       p { text-transform: uppercase; font-weight: bold; }
     `,
   ].flat();
-
 
   override render() {
     return html`<p>Hello ${this.name}!</p>`;
@@ -37,7 +38,6 @@ class MyCounter extends GluonElement {
     count: { type: Number, attribute: true, reflect: true },
     step: { type: Number, attribute: true },
   };
-
 
   count = 0;
   step = 1;
@@ -61,24 +61,32 @@ class MyCounter extends GluonElement {
   }
 
   private emit() {
-    this.dispatchEvent(new CustomEvent('count-changed', { detail: { count: this.count }, bubbles: true, composed: true }));
+    this.dispatchEvent(
+      new CustomEvent("count-changed", {
+        detail: { count: this.count },
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 }
 
-define(HelloMessage, 'hello-message');
-define(LoudMessage, 'loud-message');
-define(MyCounter, 'my-counter');
+define(HelloMessage, "hello-message");
+define(LoudMessage, "loud-message");
+define(MyCounter, "my-counter");
 
 declare global {
   interface HTMLElementTagNameMap {
-    'hello-message': HelloMessage;
-    'loud-message': LoudMessage;
-    'my-counter': MyCounter;
+    "hello-message": HelloMessage;
+    "loud-message": LoudMessage;
+    "my-counter": MyCounter;
   }
   interface GlobalEventHandlersEventMap {
-    'count-changed': CustomEvent<{ count: number }>;
+    "count-changed": CustomEvent<{ count: number }>;
   }
-
 }
 
-document.addEventListener('count-changed', event => console.log('count changed to', event.detail.count));
+const log = document.querySelector<HTMLElement>("#log")!;
+document.addEventListener("count-changed", (event) => {
+  log.textContent = `Count changed to ${event.detail.count}`;
+});

@@ -1,10 +1,10 @@
-import { beforeEach, afterEach } from 'vitest';
-import type { GluonElement } from '../src/gluon.js';
+import { beforeEach, afterEach } from "vitest";
+import type { GluonElement } from "../src/index.js";
 
 let container: HTMLDivElement;
 
 beforeEach(() => {
-  container = document.createElement('div');
+  container = document.createElement("div");
   document.body.append(container);
 });
 
@@ -21,10 +21,13 @@ export const mount = async <T extends HTMLElement>(element: T): Promise<T> => {
 
 // The rendered text of an element, with whitespace collapsed and the part markers removed
 export const text = (element: GluonElement): string =>
-  (element.renderRoot.textContent ?? '').replace(/\s+/g, ' ').trim();
+  (element.renderRoot.textContent ?? "").replace(/\s+/g, " ").trim();
 
 export const innerHTML = (node: ParentNode): string =>
-  (node as Element).innerHTML.replace(/<!---->/g, '').replace(/\s+/g, ' ').trim();
+  (node as Element).innerHTML
+    .replace(/<!---->/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
 // Each test class needs its own tag name
 let tagCount = 0;

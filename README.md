@@ -14,7 +14,7 @@ _A tiny base class for Web Components_
 ## Example
 
 ```typescript
-import { GluonElement, define, html, css } from '@gluon/gluon';
+import { GluonElement, define, html, css } from "@gluon/gluon";
 
 class MyCounter extends GluonElement {
   static override styles = css`
@@ -49,18 +49,18 @@ class MyCounter extends GluonElement {
   }
 
   private emit() {
-    this.dispatchEvent(new CustomEvent('count-changed', { detail: { count: this.count }, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent("count-changed", { detail: { count: this.count }, bubbles: true, composed: true }));
   }
 }
 
-define(MyCounter, 'my-counter');
+define(MyCounter, "my-counter");
 
 declare global {
   interface HTMLElementTagNameMap {
-    'my-counter': MyCounter;
+    "my-counter": MyCounter;
   }
   interface GlobalEventHandlersEventMap {
-    'count-changed': CustomEvent<{ count: number }>;
+    "count-changed": CustomEvent<{ count: number }>;
   }
 }
 ```
@@ -80,13 +80,13 @@ npm install @gluon/gluon
 GluonJS is published as an ES module with type declarations, and depends on `lite-html`. Import it from your bundler or import map:
 
 ```javascript
-import { GluonElement, define, html, css } from '@gluon/gluon';
+import { GluonElement, define, html, css } from "@gluon/gluon";
 ```
 
 Or load the bundle that includes lite-html:
 
 ```javascript
-import { GluonElement, define, html } from 'https://unpkg.com/@gluon/gluon';
+import { GluonElement, define, html } from "https://unpkg.com/@gluon/gluon";
 ```
 
 The `html`, `svg`, and `render` functions and the directives of lite-html are exported from `@gluon/gluon` as well, so one import is enough.
@@ -102,7 +102,7 @@ class MyElement extends GluonElement {
   }
 }
 
-define(MyElement, 'my-element');
+define(MyElement, "my-element");
 ```
 
 ### define(ElementClass, name, registry?)
@@ -133,10 +133,10 @@ class LightElement extends GluonElement {
 }
 ```
 
-The static `shadowRootOptions` default to `{ mode: 'open' }`. Override them to make the shadow root closed, or to delegate focus:
+The static `shadowRootOptions` default to `{ mode: "open" }`. Override them to make the shadow root closed, or to delegate focus:
 
 ```typescript
-static override shadowRootOptions: ShadowRootInit = { mode: 'open', delegatesFocus: true };
+static override shadowRootOptions: ShadowRootInit = { mode: "open", delegatesFocus: true };
 ```
 
 ### styles
@@ -180,7 +180,7 @@ class MyElement extends GluonElement {
     items: { type: Array },
   };
 
-  name = '';
+  name = "";
   count = 0;
   active = false;
   items: string[] = [];
@@ -189,16 +189,15 @@ class MyElement extends GluonElement {
 
 Every declared property becomes an accessor that requests an update when its value changes. The class field is the default value. A property has no attribute unless it is declared with `attribute: true`, which observes the kebab-cased name of the property: `maxValue` is set from `max-value`. The options of a property are:
 
-| Option       | Default            | Meaning                                                                                                       |
-| ------------ | ------------------ | ------------------------------------------------------------------------------------------------------------- |
-| `type`       | `String`           | `String`, `Number`, `Boolean`, `Array`, or `Object`. A hint for the default converter                        |
-| `attribute`  | `false`            | Set the property from the attribute with its kebab-cased name                                                 |
-| `reflect`    | `false`            | Write the property to its attribute when it changes, including its initial value. Only with `attribute: true` |
-| `converter`  | `defaultConverter` | An object with `fromAttribute(value, type)` and `toAttribute(value, type)` functions                            |
-| `hasChanged` | `notEqual`         | A function `(value, oldValue) => boolean` that decides whether a new value counts as a change                  |
+| Option       | Default      | Meaning                                                                                                       |
+| ------------ | ------------ | ------------------------------------------------------------------------------------------------------------- |
+| `type`       | `String`     | `String`, `Number`, `Boolean`, `Array`, or `Object`. A hint for the default converter                         |
+| `attribute`  | `false`      | Set the property from the attribute with its kebab-cased name                                                 |
+| `reflect`    | `false`      | Write the property to its attribute when it changes, including its initial value. Only with `attribute: true` |
+| `converter`  | built-in     | An object with `fromAttribute(value, type)` and `toAttribute(value, type)` functions                          |
+| `hasChanged` | `!Object.is` | A function `(value, oldValue) => boolean` that decides whether a new value counts as a change                 |
 
 The default converter copies `String` attributes, parses `Number` attributes with `Number()`, treats `Boolean` attributes as `true` when present, and parses `Array` and `Object` attributes as JSON. A property that is `null` or `undefined` removes its attribute when reflected. Rich data belongs in properties, not attributes: pass it from a template with `.items=${items}`, and leave `attribute` off.
-
 
 Changing a property requests an update. Mutating an array or object inside a property does not, because the property itself did not change. Either assign a new value, or call `requestUpdate()`:
 
@@ -250,7 +249,7 @@ A class inherits the properties of its superclass, and can declare more. A class
 ```typescript
 class BaseElement extends GluonElement {
   static override properties: PropertyDeclarations = { name: { attribute: true } };
-  name = '';
+  name = "";
 }
 
 
@@ -273,12 +272,12 @@ Changing a property schedules an update in a microtask. All changes before the m
 ```typescript
 class FullName extends GluonElement {
   static override properties = { first: {}, last: {} };
-  first = '';
-  last = '';
-  full = '';
+  first = "";
+  last = "";
+  full = "";
 
   override willUpdate(changed: PropertyValues<this>) {
-    if (changed.has('first') || changed.has('last')) {
+    if (changed.has("first") || changed.has("last")) {
       this.full = `${this.first} ${this.last}`;
     }
   }
@@ -298,7 +297,7 @@ A promise that resolves when the pending update completes. It resolves with `tru
 ```typescript
 element.count = 5;
 await element.updateComplete;
-element.renderRoot.querySelector('span'); // Shows 5
+element.renderRoot.querySelector("span"); // Shows 5
 ```
 
 ### requestUpdate(name?, oldValue?)
@@ -322,7 +321,7 @@ The standard custom element callbacks are available. Call the `super` method whe
 ```typescript
 override connectedCallback() {
   super.connectedCallback();
-  window.addEventListener('resize', this.measure, { signal: this.disconnectSignal });
+  window.addEventListener("resize", this.measure, { signal: this.disconnectSignal });
 }
 ```
 
@@ -333,27 +332,27 @@ override connectedCallback() {
 Dispatch events with `dispatchEvent`. An event that should be heard outside the shadow root needs `composed: true`, and `bubbles: true` to reach ancestors:
 
 ```typescript
-this.dispatchEvent(new CustomEvent('count-changed', { detail: { count: this.count }, bubbles: true, composed: true }));
+this.dispatchEvent(new CustomEvent("count-changed", { detail: { count: this.count }, bubbles: true, composed: true }));
 ```
 
-Declare the event in `GlobalEventHandlersEventMap`, so `addEventListener('count-changed', ...)` is typed on elements, documents, and windows:
+Declare the event in `GlobalEventHandlersEventMap`, so `addEventListener("count-changed", ...)` is typed on elements, documents, and windows:
 
 ```typescript
 declare global {
   interface GlobalEventHandlersEventMap {
-    'count-changed': CustomEvent<{ count: number }>;
+    "count-changed": CustomEvent<{ count: number }>;
   }
 }
 ```
 
 ## TypeScript
 
-GluonJS ships type declarations and needs no compiler settings. Declare every element in `HTMLElementTagNameMap`, so `document.createElement('my-counter')` and `querySelector('my-counter')` return the element class:
+GluonJS ships type declarations and needs no compiler settings. Declare every element in `HTMLElementTagNameMap`, so `document.createElement("my-counter")` and `querySelector("my-counter")` return the element class:
 
 ```typescript
 declare global {
   interface HTMLElementTagNameMap {
-    'my-counter': MyCounter;
+    "my-counter": MyCounter;
   }
 }
 ```

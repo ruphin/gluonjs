@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GluonJS dev</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 40rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      This page consumes the library from <code>src/</code> via a Vite alias.
+    </p>
+    <hello-message name="World"></hello-message>
+    <loud-message name="World"></loud-message>
+    <p>
+      <my-counter count="5" step="5"></my-counter>
+      <my-counter></my-counter>
+    </p>
+    <p id="log"></p>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

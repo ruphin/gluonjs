@@ -2,15 +2,42 @@
   "name": "@gluon/gluon",
   "version": "2.5.3",
   "description": "A tiny base class for Web Components, rendered with lite-html",
-  "main": "./dist/gluon.js",
-  "types": "./dist/gluon.d.ts",
-  "unpkg": "dist/gluon.min.js",
+  "license": "MIT",
+  "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "dist/gluon.min.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "dev": "vite serve dev",
+    "build": "vite build && vite build --mode bundle && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm run format:check && npm test",
+    "prepublishOnly": "npm run check && npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ruphin/gluonjs.git"
+  },
+  "homepage": "https://github.com/ruphin/gluonjs",
+  "bugs": {
+    "url": "https://github.com/ruphin/gluonjs/issues"
   },
   "author": "Goffert van Gool <ruphin@ruphin.net>",
   "keywords": [
@@ -19,29 +46,8 @@
     "lite-html",
     "custom-elements"
   ],
-  "license": "MIT",
   "publishConfig": {
     "access": "public"
-  },
-  "bugs": {
-    "url": "https://github.com/ruphin/gluonjs/issues"
-  },
-  "scripts": {
-    "dev": "vite examples",
-    "build": "vite build && vite build --mode bundle && tsc -p tsconfig.build.json",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "prepublishOnly": "npm run typecheck && npm run build && npm test",
-    "release": "np"
-  },
-  "homepage": "https://github.com/ruphin/gluonjs",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/gluon.d.ts",
-      "default": "./dist/gluon.js"
-    }
   },
   "engines": {
     "node": ">=20"
@@ -50,8 +56,9 @@
     "lite-html": "^1.2.0"
   },
   "devDependencies": {
+    "@types/node": "^26.6.4",
     "jsdom": "^30.1.2",
-    "np": "4.0.2",
+    "prettier": "^3.9.9",
     "typescript": "^7.0.2",
     "vite": "^8.3.2",
     "vitest": "^5.0.3"

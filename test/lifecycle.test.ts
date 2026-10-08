@@ -1,9 +1,14 @@
-import { describe, it, expect } from 'vitest';
-import { GluonElement, define, html, type PropertyValues } from '../src/gluon.js';
-import { mount, text, tag } from './helpers.js';
+import { describe, it, expect } from "vitest";
+import {
+  GluonElement,
+  define,
+  html,
+  type PropertyValues,
+} from "../src/index.js";
+import { mount, text, tag } from "./helpers.js";
 
-describe('update cycle', () => {
-  it('does not render before the element is connected', async () => {
+describe("update cycle", () => {
+  it("does not render before the element is connected", async () => {
     class Lazy extends GluonElement {
       override render() {
         return html`rendered`;
@@ -15,55 +20,68 @@ describe('update cycle', () => {
     await Promise.resolve();
     await Promise.resolve();
     expect(element.hasUpdated).toBe(false);
-    expect(text(element)).toBe('');
+    expect(text(element)).toBe("");
     await mount(element);
     expect(element.hasUpdated).toBe(true);
-    expect(text(element)).toBe('rendered');
+    expect(text(element)).toBe("rendered");
   });
 
-  it('runs the lifecycle methods in order', async () => {
+  it("runs the lifecycle methods in order", async () => {
     const calls: string[] = [];
     class Ordered extends GluonElement {
       static override properties = { value: {} };
-      value = 'a';
+      value = "a";
       override shouldUpdate() {
-        calls.push('shouldUpdate');
+        calls.push("shouldUpdate");
         return true;
       }
       override willUpdate() {
-        calls.push('willUpdate');
+        calls.push("willUpdate");
       }
       override update(changed: PropertyValues<this>) {
-        calls.push('update');
+        calls.push("update");
         super.update(changed);
       }
       override render() {
-        calls.push('render');
+        calls.push("render");
         return html`${this.value}`;
       }
       override firstUpdated() {
-        calls.push('firstUpdated');
+        calls.push("firstUpdated");
       }
       override updated() {
-        calls.push('updated');
+        calls.push("updated");
       }
     }
     define(Ordered, tag());
     const element = await mount(new Ordered());
-    expect(calls).toEqual(['shouldUpdate', 'willUpdate', 'update', 'render', 'firstUpdated', 'updated']);
+    expect(calls).toEqual([
+      "shouldUpdate",
+      "willUpdate",
+      "update",
+      "render",
+      "firstUpdated",
+      "updated",
+    ]);
     calls.length = 0;
-    element.value = 'b';
+    element.value = "b";
     await element.updateComplete;
-    expect(calls).toEqual(['shouldUpdate', 'willUpdate', 'update', 'render', 'updated']);
+    expect(calls).toEqual([
+      "shouldUpdate",
+      "willUpdate",
+      "update",
+      "render",
+      "updated",
+    ]);
   });
 
-  it('skips the update when `shouldUpdate` returns false', async () => {
+  it("skips the update when `shouldUpdate` returns false", async () => {
     class Guarded extends GluonElement {
       static override properties = { value: { type: Number } };
       value = 0;
       renders = 0;
       override shouldUpdate(changed: PropertyValues<this>) {
-        return !changed.has('value') || this.value % 2 === 0;
+        return !changed.has("value") || this.value % 2 === 0;
       }
       override render() {
         this.renders++;
@@ -81,14 +99,14 @@ describe('update cycle', () => {
     expect(element.renders).toBe(2);
   });
 
-  it('lets `willUpdate` derive values before rendering', async () => {
+  it("lets `willUpdate` derive values before rendering", async () => {
     class Derived extends GluonElement {
       static override properties = { first: {}, last: {} };
-      first = 'Ada';
-      last = 'Lovelace';
-      full = '';
+      first = "Ada";
+      last = "Lovelace";
+      full = "";
       override willUpdate(changed: PropertyValues<this>) {
-        if (changed.has('first') || changed.has('last')) {
+        if (changed.has("first") || changed.has("last")) {
           this.full = `${this.first} ${this.last}`;
         }
       }
@@ -98,13 +116,13 @@ describe('update cycle', () => {
     }
     define(Derived, tag());
     const element = await mount(new Derived());
-    expect(text(element)).toBe('Ada Lovelace');
-    element.last = 'Byron';
+    expect(text(element)).toBe("Ada Lovelace");
+    element.last = "Byron";
     await element.updateComplete;
-    expect(text(element)).toBe('Ada Byron');
+    expect(text(element)).toBe("Ada Byron");
   });
 
-  it('re-renders on `requestUpdate()` without arguments', async () => {
+  it("re-renders on `requestUpdate()` without arguments", async () => {
     class Manual extends GluonElement {
       items: string[] = [];
       override render() {
@@ -113,13 +131,13 @@ describe('update cycle', () => {
     }
     define(Manual, tag());
     const element = await mount(new Manual());
-    element.items.push('a');
+    element.items.push("a");
     element.requestUpdate();
     await element.updateComplete;
-    expect(text(element)).toBe('1');
+    expect(text(element)).toBe("1");
   });
 
-  it('resolves `updateComplete` with false when the update requested another update', async () => {
+  it("resolves `updateComplete` with false when the update requested another update", async () => {
     class Chained extends GluonElement {
       static override properties = { value: { type: Number } };
       value = 0;
@@ -139,35 +157,37 @@ describe('update cycle', () => {
     expect(element.value).toBe(1);
     while (!(await element.updateComplete));
     expect(element.value).toBe(3);
-    expect(text(element)).toBe('3');
+    expect(text(element)).toBe("3");
     element.remove();
   });
 
-  it('performs the update synchronously with `performUpdate()`', async () => {
+  it("performs the update synchronously with `performUpdate()`", async () => {
     class Sync extends GluonElement {
       static override properties = { value: {} };
-      value = 'a';
+      value = "a";
       override render() {
         return html`${this.value}`;
       }
     }
     define(Sync, tag());
     const element = await mount(new Sync());
-    element.value = 'b';
+    element.value = "b";
     element.performUpdate();
-    expect(text(element)).toBe('b');
+    expect(text(element)).toBe("b");
     expect(element.isUpdatePending).toBe(false);
     expect(await element.updateComplete).toBe(true);
   });
 });
 
-describe('disconnectSignal', () => {
-  it('is aborted on disconnect, and replaced on the next connect', async () => {
+describe("disconnectSignal", () => {
+  it("is aborted on disconnect, and replaced on the next connect", async () => {
     class Listening extends GluonElement {
       clicks = 0;
       override connectedCallback() {
         super.connectedCallback();
-        document.addEventListener('click', () => this.clicks++, { signal: this.disconnectSignal });
+        document.addEventListener("click", () => this.clicks++, {
+          signal: this.disconnectSignal,
+        });
       }
     }
     define(Listening, tag());
