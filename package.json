@@ -1,6 +1,6 @@
 {
   "name": "@gluon/gluon",
-  "version": "2.5.3",
+  "version": "3.0.0",
   "description": "A tiny base class for Web Components, rendered with lite-html",
   "license": "MIT",
   "type": "module",

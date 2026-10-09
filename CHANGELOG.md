@@ -4,6 +4,10 @@ All notable changes to GluonJS are documented in this file. The format follows [
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-10-09
+
+GluonJS 3 is a rewrite in TypeScript on lite-html. The lists below cover what changed for an element written against 2.x.
+
 ### Added
 
 - Reactive properties, declared in the static `properties` map of an element. A declared property requests an update when it changes. With `attribute: true` it is set from the attribute with its kebab-cased name, and with `reflect: true` it is written back to that attribute. The `type` and `converter` options control the conversion, and `hasChanged` the change detection.
@@ -31,3 +35,7 @@ All notable changes to GluonJS are documented in this file. The format follows [
 ## [2.5.3] - 2019-02-20
 
 Last release of the 2.x line, built on lit-html.
+
+[Unreleased]: https://github.com/ruphin/gluonjs/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/ruphin/gluonjs/compare/v2.5.3...v3.0.0
+[2.5.3]: https://github.com/ruphin/gluonjs/releases/tag/v2.5.3
