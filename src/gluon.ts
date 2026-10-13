@@ -124,23 +124,13 @@ const getStyles = (ctor: GluonConstructor): readonly StyleSheet[] => {
 
 /**
  * Registers an element class with a custom element registry, under the tag name `name`
- *
- * A name that is already registered is not registered again, so a module can be loaded more than once.
- * When the name is registered with a different class, the existing registration is kept and a warning is logged.
  */
 export const define = <T extends GluonConstructor>(
   ctor: T,
   name: string,
   registry: CustomElementRegistry = customElements,
 ): T => {
-  const existing = registry.get(name);
-  if (!existing) {
-    registry.define(name, ctor);
-  } else if (existing !== ctor) {
-    console.warn(
-      `<${name}> is already defined with a different class, the existing definition is kept`,
-    );
-  }
+  registry.define(name, ctor);
   return ctor;
 };
 
@@ -154,13 +144,11 @@ export const define = <T extends GluonConstructor>(
  */
 export class GluonElement extends HTMLElement {
   /**
-
    * The reactive properties of this element, by name
    *
    * Each declared property is an accessor that requests an update when its value changes.
    * With `attribute: true`, the property is also set from the attribute with its kebab-cased name.
    */
-
   static properties: PropertyDeclarations = {};
 
   /**
@@ -203,10 +191,8 @@ export class GluonElement extends HTMLElement {
   #reflectingProperty: string | undefined;
   // Resolves when the pending update completes, with `true` when no further update is pending
   #updatePromise: Promise<boolean>;
-  // Resolves the promise that the first update waits for, called on the first connect
-  #enableUpdating!: (value: boolean) => void;
-  // Whether the element has been connected before
-  #connected = false;
+  // Resolves the promise that the first update waits for, called and cleared on the first connect
+  #enableUpdating?: (value: boolean) => void;
   // The styles that are added as a `<style>` element after the first render, when stylesheets cannot be adopted
   #styleText: string | undefined;
   // Aborted when the element is disconnected
@@ -261,8 +247,7 @@ export class GluonElement extends HTMLElement {
     if (this.#disconnect.signal.aborted) {
       this.#disconnect = new AbortController();
     }
-    if (!this.#connected) {
-      this.#connected = true;
+    if (this.#enableUpdating) {
       this.#upgradeProperties();
       // Record the initial value of every declared property, so it is reflected and part of the first update
       for (const name of finalize(
@@ -271,6 +256,7 @@ export class GluonElement extends HTMLElement {
         this.requestUpdate(name, undefined);
       }
       this.#enableUpdating(true);
+      this.#enableUpdating = undefined;
     }
   }
 

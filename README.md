@@ -109,8 +109,6 @@ define(MyElement, "my-element");
 
 Registers the class with a custom element registry under the tag name `name`, and returns the class.
 
-A name that is already registered is not registered again, so a module can be loaded more than once, for example by a development server that reloads modules. When the name is registered with a different class, the existing registration is kept and a warning is logged.
-
 The `registry` defaults to the global `customElements`. Pass a scoped `CustomElementRegistry` to register the element in that scope.
 
 ### render()

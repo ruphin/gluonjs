@@ -4,6 +4,10 @@ All notable changes to GluonJS are documented in this file. The format follows [
 
 ## [Unreleased]
 
+### Changed
+
+- `define()` calls the registry directly, and throws when the name is already defined instead of keeping the existing definition.
+
 ## [3.0.0] - 2026-10-09
 
 GluonJS 3 is a rewrite in TypeScript on lite-html. The lists below cover what changed for an element written against 2.x.

@@ -8,27 +8,16 @@ describe("define", () => {
     expect(customElements.get("my-element")).toBe(MyElement);
   });
 
-  it("does not throw when the class is defined again", () => {
-    class TwiceElement extends GluonElement {}
-    define(TwiceElement, "twice-element");
-    expect(() => define(TwiceElement, "twice-element")).not.toThrow();
-  });
-
-  it("keeps the existing definition and warns when the name is taken by another class", () => {
+  it("throws when the name is already defined", () => {
     class FirstElement extends GluonElement {}
     class SecondElement extends GluonElement {}
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     define(FirstElement, "taken-element");
-    define(SecondElement, "taken-element");
-    expect(customElements.get("taken-element")).toBe(FirstElement);
-    expect(warn).toHaveBeenCalledOnce();
-    warn.mockRestore();
+    expect(() => define(SecondElement, "taken-element")).toThrow();
   });
 
   it("registers with another registry", () => {
     class ScopedElement extends GluonElement {}
     const registry = {
-      get: vi.fn(),
       define: vi.fn(),
     } as unknown as CustomElementRegistry;
     define(ScopedElement, "scoped-element", registry);
